@@ -100,4 +100,8 @@ vc: FORCE
 pi: FORCE
 	@$(MAKE) -s -f makefile.pi
 
+oga: FORCE
+	@$(MAKE) -s -f makefile.oga
+
+
 FORCE:

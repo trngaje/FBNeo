@@ -32,6 +32,7 @@ For SDL1.2 builds just type `make sdl` (requires SDL1.2 and GCC, make, perl and 
 
 For SDL2 builds just type `make sdl2` (requires SDL2, SDL2_image, gcc, make, perl and nasm) [instructions](README-SDL.md)
 
+For odroid go advance builds just type 'make -j4 oga'
 # Reporting Issues
 
 Please raise an issue on the [project GitHub](https://github.com/finalburnneo/FBNeo/issues) or report on the forums at [Neosource](https://neo-source.com)
