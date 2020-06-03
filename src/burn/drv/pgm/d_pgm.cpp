@@ -6226,23 +6226,23 @@ struct BurnDriver BurnDrvEspgalbl = {
 	224, 448, 3, 4
 };
 
-// 西游释厄传-群魔乱舞(新版208版) Xi You Shi E Zhuan Super Plus (Qun Mo Luan Wu New 208 Revision)
+// 西游释厄传 - 群魔乱舞 (版本 208, 修改版) Xi You Shi E Zhuan Super Plus (Qun Mo Luan Wu New 208 Revision)
 // More info at: https://www.ppxclub.com/forum.php?mod=viewthread&tid=695504&fromuid=150233
 
 static struct BurnRomInfo oldsplusnrRomDesc[] = {
-	{ "p05301n_v208.rom",	0x400000, 0x97A7CF98, 1 | BRF_PRG | BRF_ESS },	//  0 68K Code
+	{ "p05301n_v208.rom",	0x400000, 0x15d112d2, 1 | BRF_PRG | BRF_ESS },	//  0 68K Code
 
-	{ "t05301.rom",			0x800000, 0x8257bbb0, 2 | BRF_GRA },		//  1 Tile data
+	{ "t05301.rom",			0x800000, 0x8257bbb0, 2 | BRF_GRA },			//  1 Tile data
 
-	{ "a05301n.rom",		0x800000, 0x3D3125FF, 3 | BRF_GRA },	 	//  2 Sprite Color Data
-	{ "a05302n.rom",		0x800000, 0x4ED9028C, 3 | BRF_GRA },		//  3
-	{ "a05303.rom",			0x800000, 0x13475d85, 3 | BRF_GRA },		//  4
-	{ "a05304.rom",			0x800000, 0xf03ef7a6, 3 | BRF_GRA },		//  5
+	{ "a05301n.rom",		0x800000, 0x3d3125ff, 3 | BRF_GRA },	 		//  2 Sprite Color Data
+	{ "a05302n.rom",		0x800000, 0x4ed9028c, 3 | BRF_GRA },			//  3
+	{ "a05303.rom",			0x800000, 0x13475d85, 3 | BRF_GRA },			//  4
+	{ "a05304.rom",			0x800000, 0xf03ef7a6, 3 | BRF_GRA },			//  5
 
-	{ "b05301n.rom",		0x800000, 0x13702BBF, 4 | BRF_GRA },		//  6 Sprite Masks & Color Indexes
-	{ "b05302n.rom",		0x800000, 0xB9F75120, 4 | BRF_GRA },		//  7
+	{ "b05301n.rom",		0x800000, 0x13702bbf, 4 | BRF_GRA },			//  6 Sprite Masks & Color Indexes
+	{ "b05302n.rom",		0x800000, 0xb9f75120, 4 | BRF_GRA },			//  7
 
-	{ "m05301.rom",			0x400000, 0x86ec83bc, 5 | BRF_SND },		//  8 Samples
+	{ "m05301.rom",			0x400000, 0x86ec83bc, 5 | BRF_SND },			//  8 Samples
 
 	{ "oldsplus_igs027a.bin",	0x004000, 0x00000000, 7 | BRF_PRG | BRF_ESS | BRF_NODUMP },	//  9 Internal ARM7 Rom
 };
@@ -6251,11 +6251,84 @@ STDROMPICKEXT(oldsplusnr, oldsplusnr, pgm)
 STD_ROM_FN(oldsplusnr)
 
 struct BurnDriver BurnDrvoldsplusnr = {
-	"oldsplusnr", "oldsplus", "pgm", NULL, "2020",
+	"oldsplusnr", "oldsplus", "pgm", NULL, "2020-05-29",
 	"Xi You Shi E Zhuan Super Plus (Qun Mo Luan Wu New 208 Revision)\0", "Incomplete Dump", "Hack", "PolyGameMaster",
-	NULL, NULL, NULL, NULL,
+	L"Xi You Shi E Zhuan Super Plus (Qun Mo Luan Wu New 208 Revision)\0\u897F\u6E38\u91CA\u5384\u4F20 - \u7FA4\u9B54\u4E71\u821E (\u7248\u672C 208, \u4FEE\u6539\u7248)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 4, HARDWARE_IGS_PGM/* | HARDWARE_IGS_USE_ARM_CPU*/, GBF_SCRFIGHT, 0,
 	NULL, oldsplusnrRomInfo, oldsplusnrRomName, NULL, NULL, NULL, NULL, pgmInputInfo, puzzli2DIPInfo,
 	oldsplusInit, pgmExit, pgmFrame, pgmDraw, pgmScan, &nPgmPalRecalc, 0x900,
+	448, 224, 4, 3
+};
+
+// Knights of Valour Super Heroes Plus (The Road to Survival True King Version 2018-02-23, FEITIANXUE)
+// 2018-02-23
+// This set is known as kovsho89 in HBMAME
+
+static struct BurnRomInfo kovshpqszlRomDesc[] = {
+	{ "p0600h_101_po89.rom",		0x400000, 0x086d100b, 1 | BRF_PRG | BRF_ESS },  //  0 68K Code
+
+	{ "t0600_pw10.rom",    			0x800000, 0xa919ec0f, 2 | BRF_GRA },			//  1 Tile data
+
+	{ "a0600_po73.rom",	  	 		0x800000, 0x72643288, 3 | BRF_GRA },			//  2 Sprite Color Data
+	{ "a0601_po73.rom",	  	 		0x800000, 0x9c1d1bea, 3 | BRF_GRA }, 	        //  3 
+	{ "a0602_po73.rom",	   			0x800000, 0x7b437e0f, 3 | BRF_GRA }, 	        //  4
+	{ "a0540_po89.rom",	  	 		0x800000, 0xb038e568, 3 | BRF_GRA }, 	        //  5
+	{ "a0541_po73.rom",	   			0x800000, 0x1fa3c921, 3 | BRF_GRA }, 	        //  6
+
+	{ "b0600_po73.rom",	   			0x800000, 0x0646c5ef, 4 | BRF_GRA },			//  7 Sprite Masks & Color Indexes
+	{ "b0540_po89.rom",	   			0x800000, 0x03a1641e, 4 | BRF_GRA },			//  8
+	
+	{ "m0600_po69.rom",	 	  		0x400000, 0xec3f335d, 5 | BRF_SND },			//  9 Samples
+
+	{ "kovsh_v100_china_po89.asic", 0x004000, 0x4627f36f, 7 | BRF_PRG | BRF_ESS/* | BRF_NODUMP*/ },  //  11 Internal ARM7 Rom
+};
+
+STDROMPICKEXT(kovshpqszl, kovshpqszl, pgm)
+STD_ROM_FN(kovshpqszl)
+
+struct BurnDriver BurnDrvkovshpqszl = {
+	"kovshpqszl", "kovshp", "pgm", NULL, "2018",
+	"Knights of Valour Super Heroes Plus (The Road to Survival True King Version 2018-02-23, FEITIANXUE)\0", "Imperfect Protection Emulation", "Hack", "PolyGameMaster",
+	L"Knights of Valour Super Heroes Plus (The Road to Survival True King Version 2018-02-23, FEITIANXUE)\0\u4E71\u4E16\u82F1\u96C4 - \u6C42\u751F\u4E4B\u8DEF (\u7248\u672C 2018-02-23, \u98DE\u5929\u96EA)\0", NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_BOOTLEG | BDF_HACK, 4, HARDWARE_IGS_PGM | HARDWARE_IGS_USE_ARM_CPU, GBF_SCRFIGHT, 0,
+	NULL, kovshpqszlRomInfo, kovshpqszlRomName, NULL, NULL, NULL, NULL, pgmInputInfo, kovshxasDIPInfo,  
+	kovshpInit, pgmExit, pgmFrame, pgmDraw, pgmScan, &nPgmPalRecalc, 0x900,
+	448, 224, 4, 3
+};
+
+// Knights of Valour Super Heroes Plus (The Road to Survival True King Version 2020-01-03, FEITIANXUE)
+// 2020-01-03
+// This set is originally known as kovsho119 in HBMAME
+
+static struct BurnRomInfo kovshpqszltwRomDesc[] = {
+	{ "p0600h_101_po119.rom",		0x4006F8, 0x4c2be2a2, 1 | BRF_PRG | BRF_ESS },  //  0 68K Code
+
+	{ "t0600_pw10.rom",    			0x800000, 0xa919ec0f, 2 | BRF_GRA },			//  1 Tile data
+
+	{ "a0600_po73.rom",	  	 		0x800000, 0x72643288, 3 | BRF_GRA },			//  2 Sprite Color Data
+	{ "a0601_po73.rom",	  	 		0x800000, 0x9c1d1bea, 3 | BRF_GRA }, 	        //  3 
+	{ "a0602_po73.rom",	   			0x800000, 0x7b437e0f, 3 | BRF_GRA }, 	        //  4
+	{ "a0540_po89.rom",	  	 		0x800000, 0xb038e568, 3 | BRF_GRA }, 	        //  5
+	{ "a0541_po73.rom",	   			0x800000, 0x1fa3c921, 3 | BRF_GRA }, 	        //  6
+
+	{ "b0600_po73.rom",	   			0x800000, 0x0646c5ef, 4 | BRF_GRA },			//  7 Sprite Masks & Color Indexes
+	{ "b0540_po89.rom",	   			0x800000, 0x03a1641e, 4 | BRF_GRA },			//  8
+	{ "b0601_po77.rom",	  	 		0x800000, 0x5a9defbb, 4 | BRF_GRA },			//  9
+
+	{ "m0600_po69.rom",	 	  		0x400000, 0xec3f335d, 5 | BRF_SND },			//  10 Samples
+
+	{ "kovsh_v100_china_po89.asic", 0x004000, 0x4627f36f, 7 | BRF_PRG | BRF_ESS/* | BRF_NODUMP*/ },  //  11 Internal ARM7 Rom
+};
+
+STDROMPICKEXT(kovshpqszltw, kovshpqszltw, pgm)
+STD_ROM_FN(kovshpqszltw)
+
+struct BurnDriver BurnDrvkovshpqszltw = {
+	"kovshpqszltw", "kovshp", "pgm", NULL, "2020",
+	"Knights of Valour Super Heroes Plus (The Road to Survival True King Version 2020-01-03, FEITIANXUE)\0", "Imperfect Protection Emulation", "Hack", "PolyGameMaster",
+	L"Knights of Valour Super Heroes Plus (The Road to Survival True King Version 2020-01-03, FEITIANXUE)\0\u4E71\u4E16\u82F1\u96C4 - \u6C42\u751F\u4E4B\u8DEF (\u7248\u672C 2020-01-03, \u98DE\u5929\u96EA)\0", NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_BOOTLEG | BDF_HACK, 4, HARDWARE_IGS_PGM | HARDWARE_IGS_USE_ARM_CPU, GBF_SCRFIGHT, 0,
+	NULL, kovshpqszltwRomInfo, kovshpqszltwRomName, NULL, NULL, NULL, NULL, pgmInputInfo, kovshxasDIPInfo,  
+	kovshpInit, pgmExit, pgmFrame, pgmDraw, pgmScan, &nPgmPalRecalc, 0x900,
 	448, 224, 4, 3
 };

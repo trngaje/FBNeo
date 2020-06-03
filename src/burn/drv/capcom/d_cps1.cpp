@@ -1902,6 +1902,69 @@ static struct BurnDIPInfo CaptcommDIPList[]=
 
 STDDIPINFO(Captcomm)
 
+static struct BurnDIPInfo Captcomm4pDIPList[]=
+{
+	// Defaults
+	{0x23, 0xff, 0xff, 0x00, NULL                     },
+	{0x24, 0xff, 0xff, 0xcb, NULL                     },  // 4 Players
+	{0x25, 0xff, 0xff, 0x60, NULL                     },
+	
+	// Dip A
+	CPS1_COINAGE_2(0x23)
+
+	{0   , 0xfe, 0   , 2   , "2C to Start, 1 to Cont" },
+	{0x23, 0x01, 0x40, 0x00, "Off"                    },
+	{0x23, 0x01, 0x40, 0x40, "On"                     },
+
+	// Dip B
+	CPS1_DIFFICULTY_1(0x24)
+
+	{0   , 0xfe, 0   , 4   , "Difficulty 2"           },
+	{0x24, 0x01, 0x18, 0x00, "Easy"                   },
+	{0x24, 0x01, 0x18, 0x08, "Normal"                 },
+	{0x24, 0x01, 0x18, 0x10, "Hard"                   },
+	{0x24, 0x01, 0x18, 0x18, "Hardest"                },
+
+	{0   , 0xfe, 0   , 4   , "Play Mode"              },
+	{0x24, 0x01, 0xc0, 0x80, "1 Player"               },
+	{0x24, 0x01, 0xc0, 0x00, "2 Player"               },
+	{0x24, 0x01, 0xc0, 0x40, "3 Player"               },
+	{0x24, 0x01, 0xc0, 0xc0, "4 Player"               },
+
+	// Dip C
+	{0   , 0xfe, 0   , 4   , "Lives"                  },
+	{0x25, 0x01, 0x03, 0x03, "1"                      },
+	{0x25, 0x01, 0x03, 0x00, "2"                      },
+	{0x25, 0x01, 0x03, 0x01, "3"                      },
+	{0x25, 0x01, 0x03, 0x02, "4"                      },
+
+	{0   , 0xfe, 0   , 2   , "Free Play"              },
+	{0x25, 0x01, 0x04, 0x00, "Off"                    },
+	{0x25, 0x01, 0x04, 0x04, "On"                     },
+
+	{0   , 0xfe, 0   , 2   , "Freeze"                 },
+	{0x25, 0x01, 0x08, 0x00, "Off"                    },
+	{0x25, 0x01, 0x08, 0x08, "On"                     },
+
+	{0   , 0xfe, 0   , 2   , "Flip"                   },
+	{0x25, 0x01, 0x10, 0x00, "Off"                    },
+	{0x25, 0x01, 0x10, 0x10, "On"                     },
+
+	{0   , 0xfe, 0   , 2   , "Demo Sound"             },
+	{0x25, 0x01, 0x20, 0x00, "Off"                    },
+	{0x25, 0x01, 0x20, 0x20, "On"                     },
+
+	{0   , 0xfe, 0   , 2   , "Allow Continue"         },
+	{0x25, 0x01, 0x40, 0x00, "Off"                    },
+	{0x25, 0x01, 0x40, 0x40, "On"                     },
+	
+	{0   , 0xfe, 0   , 2   , "Game Mode"              },
+	{0x25, 0x01, 0x80, 0x00, "Game"                   },
+	{0x25, 0x01, 0x80, 0x80, "Test"                   },
+};
+
+STDDIPINFO(Captcomm4p)
+
 static struct BurnDIPInfo CawingDIPList[]=
 {
 	// Defaults
@@ -14451,343 +14514,347 @@ struct GameConfig {
 
 static const struct GameConfig ConfigTable[] =
 {
-	{ "1941"        , CPS_B_05    , mapper_YI24B , 0, NULL                },
-	{ "1941r1"      , CPS_B_05    , mapper_YI24B , 0, NULL                },
-	{ "1941u"       , CPS_B_05    , mapper_YI24B , 0, NULL                },
-	{ "1941j"       , CPS_B_05    , mapper_YI24B , 0, NULL                },
-	{ "3wonders"    , CPS_B_21_BT1, mapper_RT24B , 0, NULL                },
-	{ "3wondersr1"  , CPS_B_21_BT1, mapper_RT24B , 0, NULL                },
-	{ "3wondersu"   , CPS_B_21_BT1, mapper_RT24B , 0, NULL                },
-	{ "wonder3"     , CPS_B_21_BT1, mapper_RT22B , 0, NULL                },
-	{ "3wondersh"   , CPS_B_02    , mapper_RT24B , 0, NULL                },
-	{ "3wondersha"  , CPS_B_21_BT1, mapper_RT24B , 0, NULL                },
-	{ "3wondersb"   , CPS_B_21_BT1, mapper_RT24B , 0, NULL                },
-	{ "captcomm"    , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
-	{ "captcommr1"  , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
-	{ "captcommu"   , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
-	{ "captcommj"   , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
-	{ "captcommjr1" , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
-	{ "captcommb"   , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
-	{ "captcommb2"  , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
-	{ "cawing"      , CPS_B_16    , mapper_CA24B , 0, NULL                },
-	{ "cawingr1"    , CPS_B_16    , mapper_CA24B , 0, NULL                },
-	{ "cawingu"     , CPS_B_05    , mapper_CA22B , 0, NULL                },
-	{ "cawingur1"   , CPS_B_16    , mapper_CA24B , 0, NULL                },
-	{ "cawingj"     , CPS_B_16    , mapper_CA22B , 0, NULL                },
-	{ "cawingbl"    , CPS_B_16    , mapper_CA24B , 0, NULL                },
-	{ "cawingb2"    , CPS_B_16    , mapper_CA24B , 0, NULL                },
-	{ "cworld2j"    , CPS_B_21_BT6, mapper_Q522B , 0, NULL                },
-	{ "cworld2ja"   , CPS_B_21_DEF, mapper_Q522B , 0, NULL                }, // patched set, no battery, could be desuicided
-	{ "cworld2jb"   , CPS_B_21_BT6, mapper_Q522B , 0, NULL                }, // actually Q563B
-	{ "dino"        , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
-	{ "dinoa"       , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
-	{ "dinou"       , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
-	{ "dinoj"       , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
-	{ "dinopic"     , CPS_B_21_QS2, mapper_CD63B , 0, NULL                },
-	{ "dinopic2"    , CPS_B_21_QS2, mapper_CD63B , 0, NULL                },
-	{ "dinopic3"    , CPS_B_21_QS2, mapper_CD63B , 0, NULL                },
-	{ "dinopic4"    , CPS_B_21_QS2, mapper_CD63B , 0, NULL                },
-	{ "dinoeh"      , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
-	{ "dinoh"       , CPS_B_21_DEF, mapper_CD63B , 0, dino_decode         },
-	{ "dinohc"      , CPS_B_21_DEF, mapper_CD63B , 0, dino_decode         }, // hacked to run on Street Fighter II' Champion Edition C-Board
-	{ "dinot"       , CPS_B_21_DEF, mapper_CD63B , 0, dino_decode         },
-	{ "dinotpic"    , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
-	{ "dinohunt"    , CPS_B_21_DEF, mapper_CD63B , 0, NULL                },
-	{ "dynwar"      , CPS_B_02    , mapper_TK22B , 0, NULL                },
-	{ "dynwara"     , CPS_B_02    , mapper_TK22B , 0, NULL                },
-	{ "dynwarj"     , CPS_B_02    , mapper_TK22B , 0, NULL                },
-	{ "dynwarjr"    , CPS_B_21_DEF, mapper_TK22B , 0, NULL                },
-	{ "ffight"      , CPS_B_04    , mapper_S224B , 0, NULL                },
-	{ "ffightae"    , CPS_B_21_DEF, mapper_S224B , 0, NULL                },
-	{ "ffighta"     , CPS_B_04    , mapper_S224B , 0, NULL                },
-	{ "ffightu"     , CPS_B_04    , mapper_S224B , 0, NULL                },
-	{ "ffightu1"    , CPS_B_04    , mapper_S224B , 0, NULL                },
-	{ "ffightu2"    , CPS_B_04    , mapper_S224B , 0, NULL                },
-	{ "ffightua"    , CPS_B_01    , mapper_S224B , 0, NULL                },
-	{ "ffightub"    , CPS_B_03    , mapper_S224B , 0, NULL                }, // 04 handwritten on CPS-B chip
-	{ "ffightuc"    , CPS_B_05	  , mapper_S224B , 0, NULL                }, 
-	{ "ffightj"     , CPS_B_04    , mapper_S224B , 0, NULL                },
-	{ "ffightj1"    , CPS_B_01    , mapper_S224B , 0, NULL                },
-	{ "ffightj2"    , CPS_B_02    , mapper_S224B , 0, NULL                },
-	{ "ffightj3"    , CPS_B_03    , mapper_S224B , 0, NULL                },
-	{ "ffightj4"    , CPS_B_05    , mapper_S224B , 0, NULL                },
-	{ "ffightjh"    , CPS_B_01    , mapper_S224B , 0, NULL                },
-	{ "ffightbl"    , HACK_B_5    , mapper_S224B , 0, NULL                },
-	{ "ffightbla"   , HACK_B_5    , mapper_S224B , 0, NULL                },
-	{ "fcrash"      , HACK_B_5    , mapper_S224B , 0, NULL                }, // doesn't really have an ID, but this used to give the relevant values to our rendering functions
-	{ "forgottn"    , CPS_B_01    , mapper_LW621 , 1, NULL                },
-	{ "forgottna"   , CPS_B_01    , mapper_LW621 , 1, NULL                },
-	{ "forgottnu"   , CPS_B_01    , mapper_LW621 , 1, NULL                },
-	{ "forgottnua"  , CPS_B_01    , mapper_LWCHR , 1, NULL                },
-	{ "forgottnuaa" , CPS_B_01    , mapper_LWCHR , 1, NULL                },
-	{ "forgottnuc"  , CPS_B_01    , mapper_LWCHR , 1, NULL                },
-	{ "forgottnue"  , CPS_B_01    , mapper_LWCHR , 1, NULL                },
-	{ "lostwrld"    , CPS_B_01    , mapper_LWCHR , 1, NULL                },
-	{ "lostwrldo"   , CPS_B_01    , mapper_LWCHR , 1, NULL                },
-	{ "ganbare"     , CPS_B_21_DEF, mapper_sfzch , 0, NULL                },
-	{ "ghouls"      , CPS_B_01    , mapper_DM620 , 0, NULL                },
-	{ "ghoulsu"     , CPS_B_01    , mapper_DM620 , 0, NULL                },
-	{ "daimakai"    , CPS_B_01    , mapper_DM22A , 0, NULL                },
-	{ "daimakair"   , CPS_B_21_DEF, mapper_DAM63B, 0, NULL                },
-	{ "daimakaib"   , CPS_B_21_DEF, mapper_DAM63B, 0, NULL                }, // game controls layers at 0x98000c
-	{ "knights"     , CPS_B_21_BT4, mapper_KR63B , 0, NULL                },
-	{ "knightsu"    , CPS_B_21_BT4, mapper_KR63B , 0, NULL                },
-	{ "knightsj"    , CPS_B_21_BT4, mapper_KR63B , 0, NULL                },
-	{ "knightsja"   , CPS_B_21_BT4, mapper_KR63B , 0, NULL                },
-	{ "knightsb"    , CPS_B_21_BT4, mapper_KR63B , 0, NULL                }, // game controls layers (and priorities?) at 0x98000c
-	{ "knightsb2"   , CPS_B_21_BT4, mapper_KR63B , 0, NULL                },
-	{ "knightsb3"   , CPS_B_21_DEF, mapper_KR63B , 0, NULL                },
-	{ "knightsb4"   , CPS_B_21_BT4, mapper_KR63B , 0, NULL                }, // game controls layers (and priorities?) at 0x98000c
-	{ "knightsh"    , CPS_B_21_DEF, mapper_KR63B , 0, NULL                },
-	{ "knightsh2"   , CPS_B_21_DEF, mapper_KR63B , 0, NULL                },
-	{ "kod"         , CPS_B_21_BT2, mapper_KD29B , 0, NULL                },
-	{ "kodr1"       , CPS_B_21_BT2, mapper_KD29B , 0, NULL                },
-	{ "kodr2"       , CPS_B_21_BT2, mapper_KD29B , 0, NULL                },
-	{ "kodu"        , CPS_B_21_BT2, mapper_KD29B , 0, NULL                },
-	{ "kodj"        , CPS_B_21_BT2, mapper_KD29B , 0, NULL                },
-	{ "kodja"       , CPS_B_21_BT2, mapper_KD29B , 0, NULL                },
-	{ "kodb"        , CPS_B_21_BT2, mapper_KD29B , 0, NULL                }, // game writes priority masks 1&2 at 0x980020-22 range, 0&3 assumed hard-coded at boot
-	{ "kodh"        , CPS_B_21_DEF, mapper_KD29B , 0, NULL                },
-	{ "kodda"       , CPS_B_21_DEF, mapper_KD29B , 0, NULL                },
-	{ "megaman"     , CPS_B_21_DEF, mapper_RCM63B, 0, NULL                },
-	{ "megamana"    , CPS_B_21_DEF, mapper_RCM63B, 0, NULL                },
-	{ "rockmanj"    , CPS_B_21_DEF, mapper_RCM63B, 0, NULL                },
-	{ "mercs"       , CPS_B_12    , mapper_O224B , 0, NULL                },
-	{ "mercsu"      , CPS_B_12    , mapper_O224B , 0, NULL                },	
-	{ "mercsur1"    , CPS_B_12    , mapper_O224B , 0, NULL                },
-	{ "mercsj"      , CPS_B_12    , mapper_O224B , 0, NULL                },
-	{ "msword"      , CPS_B_13    , mapper_MS24B , 0, NULL                },
-	{ "mswordr1"    , CPS_B_13    , mapper_MS24B , 0, NULL                },
-	{ "mswordu"     , CPS_B_13    , mapper_MS24B , 0, NULL                },
-	{ "mswordj"     , CPS_B_13    , mapper_MS24B , 0, NULL                },
-	{ "mtwins"      , CPS_B_14    , mapper_CK24B , 0, NULL                },
-	{ "chikij"      , CPS_B_14    , mapper_CK24B , 0, NULL                },
-	{ "mtwinsb"     , CPS_B_14    , mapper_CK24B , 0, NULL                },
-	{ "nemo"        , CPS_B_15    , mapper_NM24B , 0, NULL                },
-	{ "nemor1"      , CPS_B_15    , mapper_NM24B , 0, NULL                },
-	{ "nemoj"       , CPS_B_15    , mapper_NM24B , 0, NULL                },
-	{ "pang3"       , CPS_B_21_DEF, mapper_pang3 , 0, NULL                },
-	{ "pang3r1"     , CPS_B_21_DEF, mapper_pang3 , 0, NULL                },
-	{ "pang3r1a"    , CPS_B_21_DEF, mapper_pang3 , 0, NULL                },
-	{ "pang3b"      , CPS_B_21_DEF, mapper_pang3 , 0, NULL                },
-	{ "pang3b2"     , CPS_B_21_DEF, mapper_pang3 , 0, NULL                },
-	{ "pang3b3"     , CPS_B_17	  , mapper_pang3 , 0, NULL                },
-	{ "pang3b4"     , CPS_B_04    , mapper_pang3 , 0, NULL                }, // hacked to run on Final Fight C-Board
-	{ "pang3b5"     , CPS_B_04    , mapper_pang3 , 0, NULL                }, // hacked to run on Final Fight C-Board
-	{ "pang3j"      , CPS_B_21_DEF, mapper_pang3 , 0, NULL                },
-	{ "pnickj"      , CPS_B_21_DEF, mapper_PKB10B, 0, NULL                },
-	{ "pokonyan"    , CPS_B_21_DEF, mapper_pokon , 0, NULL                },
-	{ "gulunpa"     , CPS_B_21_DEF, mapper_gulun , 0, NULL                },
-	{ "punisher"    , CPS_B_21_QS3, mapper_PS63B , 0, punisher_decode     },
-	{ "punisheru"   , CPS_B_21_QS3, mapper_PS63B , 0, punisher_decode     },
-	{ "punisherj"   , CPS_B_21_QS3, mapper_PS63B , 0, punisher_decode     },
-	{ "punisherh"   , CPS_B_21_QS3, mapper_PS63B , 0, punisher_decode     },
-	{ "punipic"     , CPS_B_21_QS3, mapper_PS63B , 0, NULL                }, // game controls layers at 0x98000c
-	{ "punipic2"    , CPS_B_21_QS3, mapper_PS63B , 0, NULL                }, // game controls layers at 0x98000c
-	{ "punipic3"    , CPS_B_21_QS3, mapper_PS63B , 0, NULL                }, // game controls layers at 0x98000c
-	{ "punisherbz"  , CPS_B_21_DEF, mapper_PS63B , 0, NULL                },
-	{ "punisherb"   , CPS_B_21_QS3, mapper_PS63B , 0, NULL                },
-	{ "qad"         , CPS_B_21_BT7, mapper_QD22B , 0, NULL                },
-	{ "qadjr"       , CPS_B_21_DEF, mapper_QD63B , 0, NULL                },
-	{ "qtono2j"     , CPS_B_21_DEF, mapper_TN2292, 0, NULL                },
-	{ "sf2"         , CPS_B_11    , mapper_STF29 , 0, NULL                },
-	{ "sf2ea"       , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2eb"       , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2ed"       , CPS_B_05    , mapper_STF29 , 0, NULL                },
-	{ "sf2ee"       , CPS_B_18    , mapper_STF29 , 0, NULL                },
-	{ "sf2ef"       , CPS_B_15    , mapper_STF29 , 0, NULL                },
-	{ "sf2em"       , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2en"       , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2ebbl"     , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2ebbl2"    , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2ebbl3"    , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2stt"      , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2ua"       , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2ub"       , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2uc"       , CPS_B_12    , mapper_STF29 , 0, NULL                },
-	{ "sf2ud"       , CPS_B_05    , mapper_STF29 , 0, NULL                },
-	{ "sf2ue"       , CPS_B_18    , mapper_STF29 , 0, NULL                },
-	{ "sf2uf"       , CPS_B_15    , mapper_STF29 , 0, NULL                },
-	{ "sf2ug"       , CPS_B_11    , mapper_STF29 , 0, NULL                },
-	{ "sf2uh"       , CPS_B_13    , mapper_STF29 , 0, NULL                },
-	{ "sf2ui"       , CPS_B_14    , mapper_STF29 , 0, NULL                },
-	{ "sf2uk"       , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2um"       , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2j"        , CPS_B_13    , mapper_STF29 , 0, NULL                },
-	{ "sf2j17"      , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2ja"       , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2jc"       , CPS_B_12    , mapper_STF29 , 0, NULL                },
-	{ "sf2jf"       , CPS_B_15    , mapper_STF29 , 0, NULL                },
-	{ "sf2jh"       , CPS_B_13    , mapper_STF29 , 0, NULL                },
-	{ "sf2jl"       , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2jla"      , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2qp1"      , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2qp2"      , CPS_B_14    , mapper_STF29 , 0, NULL                },
-	{ "sf2thndr"    , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2thndr2"   , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2b"        , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2b2"       , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2b3"       , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2b4"       , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2rk"       , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2rules"    , CPS_B_17    , mapper_STF29 , 0, NULL                },
-	{ "sf2bhh"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2ce"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2ceea"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2ceua"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2ceub"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2ceuc"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2cet"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2ceja"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2cejb"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2cejc"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2rb"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2rb2"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2rb3"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2rb4"      , HACK_B_1    , mapper_S9263B, 0, NULL                },
-	{ "sf2rb5"      , HACK_B_1    , mapper_S9263B, 0, NULL                },
-	{ "sf2rb6"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2red"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2redp2"    , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2red2"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2v004"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2v0042"    , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2v0043"    , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2dongb"    , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2acc"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2acca"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2accp2"    , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2dkot2"    , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2md"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                }, // game controls layers at 0x98000c
-	{ "sf2mdt"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2mdta"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2mdtb"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2mdtc"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2ceb"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2ceba"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2tlona"    , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2tlonb"    , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2tlonc"    , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2yyc"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2yyc2"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2koryu"    , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2koryu2"   , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2koryu3"   , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2amf"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2amf2"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2amf3"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2amf4"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2amf5"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2amf6"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2amf7"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2amf8"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2mega"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2mega2"    , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2ceeabl"   , CPS_B_21_DEF, mapper_S9263B, 0, NULL                }, // game controls layers at 0x98000c
-	{ "sf2ceeab2"   , CPS_B_21_DEF, mapper_S9263B, 0, NULL                }, // game controls layers at 0x98000c
-	{ "sf2ceeab3"   , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2ceeab4"   , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2ceeab5"   , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2cejabl"   , HACK_B_1    , mapper_S9263B, 0, NULL                },
-	{ "sf2cejab2"   , HACK_B_1    , mapper_S9263B, 0, NULL                },
-	{ "sf2ceupl"    , HACK_B_1    , mapper_S9263B, 0, NULL                },
-	{ "sf2ceuabl"   , HACK_B_2    , mapper_S9263B, 0, NULL                },
-	{ "sf2ceuab2"   , HACK_B_2    , mapper_S9263B, 0, NULL                },
-	{ "sf2ceuab3"   , HACK_B_2    , mapper_S9263B, 0, NULL                },
-	{ "sf2ceuab4"   , HACK_B_2    , mapper_S9263B, 0, NULL                },
-	{ "sf2re"   	, HACK_B_2    , mapper_S9263B, 0, NULL                },
-	{ "sf2ceuab5"   , HACK_B_2    , mapper_S9263B, 0, NULL                },
-	{ "sf2ceuab6"   , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2ceuab7"   , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2ceuab8"   , HACK_B_1    , mapper_S9263B, 0, NULL                },
-	{ "sf2ceuab9"   , HACK_B_1    , mapper_S9263B, 0, NULL                },
-	{ "sf2ceuab10"  , HACK_B_1    , mapper_S9263B, 0, NULL                },
-	{ "sf2ceucbl"   , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2level"    , HACK_B_2    , mapper_S9263B, 0, NULL                },
-	{ "sf2cebltw"   , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2sl73a"    , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2hf"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2hfu"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2hfj"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2hfub"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
-	{ "sf2hfjb"     , HACK_B_4    , mapper_S9263B, 0, NULL                },
-	{ "sf2hfjb2"    , HACK_B_4    , mapper_S9263B, 0, NULL                },
-	{ "slammast"    , CPS_B_21_QS4, mapper_MB63B , 0, slammast_decode     },
-	{ "slammastu"   , CPS_B_21_QS4, mapper_MB63B , 0, slammast_decode     },
-	{ "mbomberj"    , CPS_B_21_QS4, mapper_MB63B , 0, slammast_decode     },
-	{ "mbombrd"     , CPS_B_21_QS5, mapper_MB63B , 0, slammast_decode     },
-	{ "mbombrdj"    , CPS_B_21_QS5, mapper_MB63B , 0, slammast_decode     },
-	{ "slampic"     , CPS_B_21_QS4, mapper_MB63B , 0, NULL                },
-	{ "strider"     , CPS_B_01    , mapper_ST24M1, 1, NULL                },
-	{ "striderua"   , CPS_B_01    , mapper_ST24M1, 1, NULL                },
-	{ "strideruc"   , CPS_B_17    , mapper_ST24M1, 1, NULL                },
-	{ "striderjr"   , CPS_B_21_DEF, mapper_ST24M1, 1, NULL                },
-	{ "striderj"    , CPS_B_01    , mapper_ST22B , 1, NULL                },
-	{ "unsquad"     , CPS_B_11    , mapper_AR24B , 0, NULL                },
-	{ "area88"      , CPS_B_11    , mapper_AR22B , 0, NULL                },
-	{ "area88r"     , CPS_B_21_DEF, mapper_AR22B , 0, NULL                },
-	{ "varth"       , CPS_B_04    , mapper_VA63B , 0, NULL                },
-	{ "varthr1"     , CPS_B_04    , mapper_VA63B , 0, NULL                },
-	{ "varthu"      , CPS_B_04    , mapper_VA63B , 0, NULL                },
-	{ "varthj"      , CPS_B_21_BT5, mapper_VA22B , 0, NULL                },
-	{ "varthjr"     , CPS_B_21_BT5, mapper_VA63B , 0, NULL                }, // CPSB test has been patched out (72=0001) register is also written to, possibly leftover from development */   
-	{ "varthb"      , CPS_B_04    , mapper_VA63B , 0, NULL                },
-	{ "willow"      , CPS_B_03    , mapper_WL24B , 0, NULL                },
-	{ "willowu"     , CPS_B_03    , mapper_WL24B , 0, NULL                },
-	{ "willowuo"    , CPS_B_03    , mapper_WL24B , 0, NULL                },
-	{ "willowj"     , CPS_B_03    , mapper_WL24B , 0, NULL                },
-	{ "wof"         , CPS_B_21_QS1, mapper_TK263B, 0, wof_decode          },
-	{ "wofr1"       , CPS_B_21_DEF, mapper_TK263B, 0, wof_decode          },
-	{ "wofu"        , CPS_B_21_QS1, mapper_TK263B, 0, wof_decode          },
-	{ "wofj"        , CPS_B_21_QS1, mapper_TK263B, 0, wof_decode          },
-	{ "wofa"        , CPS_B_21_DEF, mapper_TK263B, 0, wof_decode          },
-	{ "wofhfh"      , CPS_B_21_DEF, mapper_TK263B, 0, NULL                },
-	{ "wofh"        , HACK_B_6    , mapper_TK263B, 0, NULL                },
-	{ "wofha"       , HACK_B_6    , mapper_TK263B, 0, NULL                },
-	{ "sgyxz"       , HACK_B_6    , mapper_TK263B, 0, NULL                },
-	{ "wof3js"      , CPS_B_21_DEF, mapper_TK263B, 0, NULL                },
-	{ "wof3jsa"     , HACK_B_6    , mapper_TK263B, 0, NULL                },
-	{ "wof3sj"      , HACK_B_6    , mapper_TK263B, 0, NULL                },
-	{ "wof3sja"     , HACK_B_6    , mapper_TK263B, 0, NULL                },
-	{ "wofsj"       , HACK_B_6    , mapper_TK263B, 0, NULL                },
-	{ "wofsja"      , HACK_B_6    , mapper_TK263B, 0, NULL                },
-	{ "wofsjb"      , CPS_B_21_DEF, mapper_TK263B, 0, NULL                },
-	{ "wofsjc"      , HACK_B_6    , mapper_TK263B, 0, NULL                },
-	{ "wofr1bl"     , CPS_B_21_DEF, mapper_TK263B, 0, NULL                }, // game controls layers at 0x98000c
-	{ "wofpic"      , CPS_B_21_DEF, mapper_TK263B, 0, NULL                }, // game controls layers at 0x98000c
-	{ "wofjh"       , CPS_B_21_QS1, mapper_TK263B, 0, wof_decode          },
-	{ "wofabl"      , HACK_B_6    , mapper_TK263B, 0, NULL                },
-	{ "wofah"       , CPS_B_21_DEF, mapper_TK263B, 0, wof_decode          },
-	{ "wofaha"      , CPS_B_21_DEF, mapper_TK263B, 0, wof_decode          },
-	{ "wofahb"      , CPS_B_21_DEF, mapper_TK263B, 0, wof_decode          },
-	{ "sfzch"       , CPS_B_21_DEF, mapper_sfzch , 0, NULL                },
-	{ "wofch"       , CPS_B_21_DEF, mapper_sfzch , 0, wof_decode          },
-	{ "wofchp"      , CPS_B_21_DEF, mapper_sfzch , 0, wof_decode          },
-	{ "wofchdx"     , CPS_B_21_DEF, mapper_sfzch , 0, wof_decode          },
-	{ "cps1demo"    , CPS_B_04    , mapper_sfzch , 0, NULL                },
-	{ "cps1frog"    , CPS_B_04    , mapper_frog  , 0, NULL                },
-	{ "kenseim"     , CPS_B_21_DEF, mapper_KNM10B, 0, NULL                },
+	{ "1941"          , CPS_B_05    , mapper_YI24B , 0, NULL                },
+	{ "1941r1"        , CPS_B_05    , mapper_YI24B , 0, NULL                },
+	{ "1941u"         , CPS_B_05    , mapper_YI24B , 0, NULL                },
+	{ "1941j"         , CPS_B_05    , mapper_YI24B , 0, NULL                },
+	{ "3wonders"      , CPS_B_21_BT1, mapper_RT24B , 0, NULL                },
+	{ "3wondersr1"    , CPS_B_21_BT1, mapper_RT24B , 0, NULL                },
+	{ "3wondersu"     , CPS_B_21_BT1, mapper_RT24B , 0, NULL                },
+	{ "wonder3"       , CPS_B_21_BT1, mapper_RT22B , 0, NULL                },
+	{ "3wondersh"     , CPS_B_02    , mapper_RT24B , 0, NULL                },
+	{ "3wondersha"    , CPS_B_21_BT1, mapper_RT24B , 0, NULL                },
+	{ "3wondersb"     , CPS_B_21_BT1, mapper_RT24B , 0, NULL                },
+	{ "captcomm"      , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
+	{ "captcommr1"    , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
+	{ "captcommu"     , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
+	{ "captcommj"     , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
+	{ "captcommjr1"   , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
+	{ "captcommb"     , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
+	{ "captcommb2"    , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
+	{ "captcommp4"    , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
+	{ "captcommr1pwx" , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
+	{ "cawing"        , CPS_B_16    , mapper_CA24B , 0, NULL                },
+	{ "cawingr1"      , CPS_B_16    , mapper_CA24B , 0, NULL                },
+	{ "cawingu"       , CPS_B_05    , mapper_CA22B , 0, NULL                },
+	{ "cawingur1"     , CPS_B_16    , mapper_CA24B , 0, NULL                },
+	{ "cawingj"       , CPS_B_16    , mapper_CA22B , 0, NULL                },
+	{ "cawingbl"      , CPS_B_16    , mapper_CA24B , 0, NULL                },
+	{ "cawingb2"      , CPS_B_16    , mapper_CA24B , 0, NULL                },
+	{ "cworld2j"      , CPS_B_21_BT6, mapper_Q522B , 0, NULL                },
+	{ "cworld2ja"     , CPS_B_21_DEF, mapper_Q522B , 0, NULL                }, // patched set, no battery, could be desuicided
+	{ "cworld2jb"     , CPS_B_21_BT6, mapper_Q522B , 0, NULL                }, // actually Q563B
+	{ "dino"          , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
+	{ "dinoa"         , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
+	{ "dinou"         , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
+	{ "dinoj"         , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
+	{ "dinopic"       , CPS_B_21_QS2, mapper_CD63B , 0, NULL                },
+	{ "dinopic2"      , CPS_B_21_QS2, mapper_CD63B , 0, NULL                },
+	{ "dinopic3"      , CPS_B_21_QS2, mapper_CD63B , 0, NULL                },
+	{ "dinopic4"      , CPS_B_21_QS2, mapper_CD63B , 0, NULL                },
+	{ "dinoeh"        , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
+	{ "dinoh"         , CPS_B_21_DEF, mapper_CD63B , 0, dino_decode         },
+	{ "dinohc"        , CPS_B_21_DEF, mapper_CD63B , 0, dino_decode         }, // hacked to run on Street Fighter II' Champion Edition C-Board
+	{ "dinot"         , CPS_B_21_DEF, mapper_CD63B , 0, dino_decode         },
+	{ "dinotpic"      , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
+	{ "dinohunt"      , CPS_B_21_DEF, mapper_CD63B , 0, NULL                },
+	{ "dinods"        , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
+	{ "dynwar"        , CPS_B_02    , mapper_TK22B , 0, NULL                },
+	{ "dynwara"       , CPS_B_02    , mapper_TK22B , 0, NULL                },
+	{ "dynwarj"       , CPS_B_02    , mapper_TK22B , 0, NULL                },
+	{ "dynwarjr"      , CPS_B_21_DEF, mapper_TK22B , 0, NULL                },
+	{ "ffight"        , CPS_B_04    , mapper_S224B , 0, NULL                },
+	{ "ffightae"      , CPS_B_21_DEF, mapper_S224B , 0, NULL                },
+	{ "ffighta"       , CPS_B_04    , mapper_S224B , 0, NULL                },
+	{ "ffightu"       , CPS_B_04    , mapper_S224B , 0, NULL                },
+	{ "ffightu1"      , CPS_B_04    , mapper_S224B , 0, NULL                },
+	{ "ffightu2"      , CPS_B_04    , mapper_S224B , 0, NULL                },
+	{ "ffightua"      , CPS_B_01    , mapper_S224B , 0, NULL                },
+	{ "ffightub"      , CPS_B_03    , mapper_S224B , 0, NULL                }, // 04 handwritten on CPS-B chip
+	{ "ffightuc"      , CPS_B_05	  , mapper_S224B , 0, NULL                }, 
+	{ "ffightj"       , CPS_B_04    , mapper_S224B , 0, NULL                },
+	{ "ffightj1"      , CPS_B_01    , mapper_S224B , 0, NULL                },
+	{ "ffightj2"      , CPS_B_02    , mapper_S224B , 0, NULL                },
+	{ "ffightj3"      , CPS_B_03    , mapper_S224B , 0, NULL                },
+	{ "ffightj4"      , CPS_B_05    , mapper_S224B , 0, NULL                },
+	{ "ffightjh"      , CPS_B_01    , mapper_S224B , 0, NULL                },
+	{ "ffightbl"      , HACK_B_5    , mapper_S224B , 0, NULL                },
+	{ "ffightbla"     , HACK_B_5    , mapper_S224B , 0, NULL                },
+	{ "fcrash"        , HACK_B_5    , mapper_S224B , 0, NULL                }, // doesn't really have an ID, but this used to give the relevant values to our rendering functions
+	{ "forgottn"      , CPS_B_01    , mapper_LW621 , 1, NULL                },
+	{ "forgottna"     , CPS_B_01    , mapper_LW621 , 1, NULL                },
+	{ "forgottnu"     , CPS_B_01    , mapper_LW621 , 1, NULL                },
+	{ "forgottnua"    , CPS_B_01    , mapper_LWCHR , 1, NULL                },
+	{ "forgottnuaa"   , CPS_B_01    , mapper_LWCHR , 1, NULL                },
+	{ "forgottnuc"    , CPS_B_01    , mapper_LWCHR , 1, NULL                },
+	{ "forgottnue"    , CPS_B_01    , mapper_LWCHR , 1, NULL                },
+	{ "lostwrld"      , CPS_B_01    , mapper_LWCHR , 1, NULL                },
+	{ "lostwrldo"     , CPS_B_01    , mapper_LWCHR , 1, NULL                },
+	{ "ganbare"       , CPS_B_21_DEF, mapper_sfzch , 0, NULL                },
+	{ "ghouls"        , CPS_B_01    , mapper_DM620 , 0, NULL                },
+	{ "ghoulsu"       , CPS_B_01    , mapper_DM620 , 0, NULL                },
+	{ "daimakai"      , CPS_B_01    , mapper_DM22A , 0, NULL                },
+	{ "daimakair"     , CPS_B_21_DEF, mapper_DAM63B, 0, NULL                },
+	{ "daimakaib"     , CPS_B_21_DEF, mapper_DAM63B, 0, NULL                }, // game controls layers at 0x98000c
+	{ "knights"       , CPS_B_21_BT4, mapper_KR63B , 0, NULL                },
+	{ "knightsu"      , CPS_B_21_BT4, mapper_KR63B , 0, NULL                },
+	{ "knightsj"      , CPS_B_21_BT4, mapper_KR63B , 0, NULL                },
+	{ "knightsja"     , CPS_B_21_BT4, mapper_KR63B , 0, NULL                },
+	{ "knightsb"      , CPS_B_21_BT4, mapper_KR63B , 0, NULL                }, // game controls layers (and priorities?) at 0x98000c
+	{ "knightsb2"     , CPS_B_21_BT4, mapper_KR63B , 0, NULL                },
+	{ "knightsb3"     , CPS_B_21_DEF, mapper_KR63B , 0, NULL                },
+	{ "knightsb4"     , CPS_B_21_BT4, mapper_KR63B , 0, NULL                }, // game controls layers (and priorities?) at 0x98000c
+	{ "knightsh"      , CPS_B_21_DEF, mapper_KR63B , 0, NULL                },
+	{ "knightsh2"     , CPS_B_21_DEF, mapper_KR63B , 0, NULL                },
+	{ "kod"           , CPS_B_21_BT2, mapper_KD29B , 0, NULL                },
+	{ "kodr1"         , CPS_B_21_BT2, mapper_KD29B , 0, NULL                },
+	{ "kodr2"         , CPS_B_21_BT2, mapper_KD29B , 0, NULL                },
+	{ "kodu"          , CPS_B_21_BT2, mapper_KD29B , 0, NULL                },
+	{ "kodj"          , CPS_B_21_BT2, mapper_KD29B , 0, NULL                },
+	{ "kodja"         , CPS_B_21_BT2, mapper_KD29B , 0, NULL                },
+	{ "kodb"          , CPS_B_21_BT2, mapper_KD29B , 0, NULL                }, // game writes priority masks 1&2 at 0x980020-22 range, 0&3 assumed hard-coded at boot
+	{ "kodh"          , CPS_B_21_DEF, mapper_KD29B , 0, NULL                },
+	{ "kodda"         , CPS_B_21_DEF, mapper_KD29B , 0, NULL                },
+	{ "megaman"       , CPS_B_21_DEF, mapper_RCM63B, 0, NULL                },
+	{ "megamana"      , CPS_B_21_DEF, mapper_RCM63B, 0, NULL                },
+	{ "rockmanj"      , CPS_B_21_DEF, mapper_RCM63B, 0, NULL                },
+	{ "mercs"         , CPS_B_12    , mapper_O224B , 0, NULL                },
+	{ "mercsu"        , CPS_B_12    , mapper_O224B , 0, NULL                },	
+	{ "mercsur1"      , CPS_B_12    , mapper_O224B , 0, NULL                },
+	{ "mercsj"        , CPS_B_12    , mapper_O224B , 0, NULL                },
+	{ "msword"        , CPS_B_13    , mapper_MS24B , 0, NULL                },
+	{ "mswordr1"      , CPS_B_13    , mapper_MS24B , 0, NULL                },
+	{ "mswordu"       , CPS_B_13    , mapper_MS24B , 0, NULL                },
+	{ "mswordj"       , CPS_B_13    , mapper_MS24B , 0, NULL                },
+	{ "mtwins"        , CPS_B_14    , mapper_CK24B , 0, NULL                },
+	{ "chikij"        , CPS_B_14    , mapper_CK24B , 0, NULL                },
+	{ "mtwinsb"       , CPS_B_14    , mapper_CK24B , 0, NULL                },
+	{ "nemo"          , CPS_B_15    , mapper_NM24B , 0, NULL                },
+	{ "nemor1"        , CPS_B_15    , mapper_NM24B , 0, NULL                },
+	{ "nemoj"         , CPS_B_15    , mapper_NM24B , 0, NULL                },
+	{ "pang3"         , CPS_B_21_DEF, mapper_pang3 , 0, NULL                },
+	{ "pang3r1"       , CPS_B_21_DEF, mapper_pang3 , 0, NULL                },
+	{ "pang3r1a"      , CPS_B_21_DEF, mapper_pang3 , 0, NULL                },
+	{ "pang3b"        , CPS_B_21_DEF, mapper_pang3 , 0, NULL                },
+	{ "pang3b2"       , CPS_B_21_DEF, mapper_pang3 , 0, NULL                },
+	{ "pang3b3"       , CPS_B_17	  , mapper_pang3 , 0, NULL                },
+	{ "pang3b4"       , CPS_B_04    , mapper_pang3 , 0, NULL                }, // hacked to run on Final Fight C-Board
+	{ "pang3b5"       , CPS_B_04    , mapper_pang3 , 0, NULL                }, // hacked to run on Final Fight C-Board
+	{ "pang3j"        , CPS_B_21_DEF, mapper_pang3 , 0, NULL                },
+	{ "pnickj"        , CPS_B_21_DEF, mapper_PKB10B, 0, NULL                },
+	{ "pokonyan"      , CPS_B_21_DEF, mapper_pokon , 0, NULL                },
+	{ "gulunpa"       , CPS_B_21_DEF, mapper_gulun , 0, NULL                },
+	{ "punisher"      , CPS_B_21_QS3, mapper_PS63B , 0, punisher_decode     },
+	{ "punisheru"     , CPS_B_21_QS3, mapper_PS63B , 0, punisher_decode     },
+	{ "punisherj"     , CPS_B_21_QS3, mapper_PS63B , 0, punisher_decode     },
+	{ "punisherh"     , CPS_B_21_QS3, mapper_PS63B , 0, punisher_decode     },
+	{ "punipic"       , CPS_B_21_QS3, mapper_PS63B , 0, NULL                }, // game controls layers at 0x98000c
+	{ "punipic2"      , CPS_B_21_QS3, mapper_PS63B , 0, NULL                }, // game controls layers at 0x98000c
+	{ "punipic3"      , CPS_B_21_QS3, mapper_PS63B , 0, NULL                }, // game controls layers at 0x98000c
+	{ "punisherbz"    , CPS_B_21_DEF, mapper_PS63B , 0, NULL                },
+	{ "punisherb"     , CPS_B_21_QS3, mapper_PS63B , 0, NULL                },
+	{ "qad"           , CPS_B_21_BT7, mapper_QD22B , 0, NULL                },
+	{ "qadjr"         , CPS_B_21_DEF, mapper_QD63B , 0, NULL                },
+	{ "qtono2j"       , CPS_B_21_DEF, mapper_TN2292, 0, NULL                },
+	{ "sf2"           , CPS_B_11    , mapper_STF29 , 0, NULL                },
+	{ "sf2ea"         , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2eb"         , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2ed"         , CPS_B_05    , mapper_STF29 , 0, NULL                },
+	{ "sf2ee"         , CPS_B_18    , mapper_STF29 , 0, NULL                },
+	{ "sf2ef"         , CPS_B_15    , mapper_STF29 , 0, NULL                },
+	{ "sf2em"         , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2en"         , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2ebbl"       , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2ebbl2"      , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2ebbl3"      , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2stt"        , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2ua"         , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2ub"         , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2uc"         , CPS_B_12    , mapper_STF29 , 0, NULL                },
+	{ "sf2ud"         , CPS_B_05    , mapper_STF29 , 0, NULL                },
+	{ "sf2ue"         , CPS_B_18    , mapper_STF29 , 0, NULL                },
+	{ "sf2uf"         , CPS_B_15    , mapper_STF29 , 0, NULL                },
+	{ "sf2ug"         , CPS_B_11    , mapper_STF29 , 0, NULL                },
+	{ "sf2uh"         , CPS_B_13    , mapper_STF29 , 0, NULL                },
+	{ "sf2ui"         , CPS_B_14    , mapper_STF29 , 0, NULL                },
+	{ "sf2uk"         , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2um"         , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2j"          , CPS_B_13    , mapper_STF29 , 0, NULL                },
+	{ "sf2j17"        , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2ja"         , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2jc"         , CPS_B_12    , mapper_STF29 , 0, NULL                },
+	{ "sf2jf"         , CPS_B_15    , mapper_STF29 , 0, NULL                },
+	{ "sf2jh"         , CPS_B_13    , mapper_STF29 , 0, NULL                },
+	{ "sf2jl"         , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2jla"        , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2qp1"        , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2qp2"        , CPS_B_14    , mapper_STF29 , 0, NULL                },
+	{ "sf2thndr"      , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2thndr2"     , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2b"          , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2b2"         , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2b3"         , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2b4"         , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2rk"         , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2rules"      , CPS_B_17    , mapper_STF29 , 0, NULL                },
+	{ "sf2bhh"        , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2ce"         , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2ceea"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2ceua"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2ceub"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2ceuc"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2cet"        , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2ceja"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2cejb"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2cejc"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2rb"         , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2rb2"        , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2rb3"        , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2rb4"        , HACK_B_1    , mapper_S9263B, 0, NULL                },
+	{ "sf2rb5"        , HACK_B_1    , mapper_S9263B, 0, NULL                },
+	{ "sf2rb6"        , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2red"        , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2redp2"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2red2"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2v004"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2v0042"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2v0043"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2dongb"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2acc"        , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2acca"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2accp2"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2dkot2"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2md"         , CPS_B_21_DEF, mapper_S9263B, 0, NULL                }, // game controls layers at 0x98000c
+	{ "sf2mdt"        , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2mdta"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2mdtb"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2mdtc"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2ceb"        , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2ceba"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2tlona"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2tlonb"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2tlonc"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2yyc"        , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2yyc2"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2koryu"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2koryu2"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2koryu3"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2amf"        , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2amf2"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2amf3"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2amf4"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2amf5"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2amf6"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2amf7"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2amf8"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2mega"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2mega2"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2ceeabl"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                }, // game controls layers at 0x98000c
+	{ "sf2ceeab2"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                }, // game controls layers at 0x98000c
+	{ "sf2ceeab3"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2ceeab4"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2ceeab5"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2cejabl"     , HACK_B_1    , mapper_S9263B, 0, NULL                },
+	{ "sf2cejab2"     , HACK_B_1    , mapper_S9263B, 0, NULL                },
+	{ "sf2ceupl"      , HACK_B_1    , mapper_S9263B, 0, NULL                },
+	{ "sf2ceuabl"     , HACK_B_2    , mapper_S9263B, 0, NULL                },
+	{ "sf2ceuab2"     , HACK_B_2    , mapper_S9263B, 0, NULL                },
+	{ "sf2ceuab3"     , HACK_B_2    , mapper_S9263B, 0, NULL                },
+	{ "sf2ceuab4"     , HACK_B_2    , mapper_S9263B, 0, NULL                },
+	{ "sf2re"   	  , HACK_B_2    , mapper_S9263B, 0, NULL                },
+	{ "sf2ceuab5"     , HACK_B_2    , mapper_S9263B, 0, NULL                },
+	{ "sf2ceuab6"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2ceuab7"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2ceuab8"     , HACK_B_1    , mapper_S9263B, 0, NULL                },
+	{ "sf2ceuab9"     , HACK_B_1    , mapper_S9263B, 0, NULL                },
+	{ "sf2ceuab10"    , HACK_B_1    , mapper_S9263B, 0, NULL                },
+	{ "sf2ceucbl"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2level"      , HACK_B_2    , mapper_S9263B, 0, NULL                },
+	{ "sf2cebltw"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2sl73a"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2hf"         , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2hfu"        , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2hfj"        , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2hfub"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "sf2hfjb"       , HACK_B_4    , mapper_S9263B, 0, NULL                },
+	{ "sf2hfjb2"      , HACK_B_4    , mapper_S9263B, 0, NULL                },
+	{ "slammast"      , CPS_B_21_QS4, mapper_MB63B , 0, slammast_decode     },
+	{ "slammastu"     , CPS_B_21_QS4, mapper_MB63B , 0, slammast_decode     },
+	{ "mbomberj"      , CPS_B_21_QS4, mapper_MB63B , 0, slammast_decode     },
+	{ "mbombrd"       , CPS_B_21_QS5, mapper_MB63B , 0, slammast_decode     },
+	{ "mbombrdj"      , CPS_B_21_QS5, mapper_MB63B , 0, slammast_decode     },
+	{ "slampic"       , CPS_B_21_QS4, mapper_MB63B , 0, NULL                },
+	{ "strider"       , CPS_B_01    , mapper_ST24M1, 1, NULL                },
+	{ "striderua"     , CPS_B_01    , mapper_ST24M1, 1, NULL                },
+	{ "strideruc"     , CPS_B_17    , mapper_ST24M1, 1, NULL                },
+	{ "striderjr"     , CPS_B_21_DEF, mapper_ST24M1, 1, NULL                },
+	{ "striderj"      , CPS_B_01    , mapper_ST22B , 1, NULL                },
+	{ "unsquad"       , CPS_B_11    , mapper_AR24B , 0, NULL                },
+	{ "area88"        , CPS_B_11    , mapper_AR22B , 0, NULL                },
+	{ "area88r"       , CPS_B_21_DEF, mapper_AR22B , 0, NULL                },
+	{ "varth"         , CPS_B_04    , mapper_VA63B , 0, NULL                },
+	{ "varthr1"       , CPS_B_04    , mapper_VA63B , 0, NULL                },
+	{ "varthu"        , CPS_B_04    , mapper_VA63B , 0, NULL                },
+	{ "varthj"        , CPS_B_21_BT5, mapper_VA22B , 0, NULL                },
+	{ "varthjr"       , CPS_B_21_BT5, mapper_VA63B , 0, NULL                }, // CPSB test has been patched out (72=0001) register is also written to, possibly leftover from development */   
+	{ "varthb"        , CPS_B_04    , mapper_VA63B , 0, NULL                },
+	{ "willow"        , CPS_B_03    , mapper_WL24B , 0, NULL                },
+	{ "willowu"       , CPS_B_03    , mapper_WL24B , 0, NULL                },
+	{ "willowuo"      , CPS_B_03    , mapper_WL24B , 0, NULL                },
+	{ "willowj"       , CPS_B_03    , mapper_WL24B , 0, NULL                },
+	{ "wof"           , CPS_B_21_QS1, mapper_TK263B, 0, wof_decode          },
+	{ "wofr1"         , CPS_B_21_DEF, mapper_TK263B, 0, wof_decode          },
+	{ "wofu"          , CPS_B_21_QS1, mapper_TK263B, 0, wof_decode          },
+	{ "wofj"          , CPS_B_21_QS1, mapper_TK263B, 0, wof_decode          },
+	{ "wofa"          , CPS_B_21_DEF, mapper_TK263B, 0, wof_decode          },
+	{ "wofhfh"        , CPS_B_21_DEF, mapper_TK263B, 0, NULL                },
+	{ "wofh"          , HACK_B_6    , mapper_TK263B, 0, NULL                },
+	{ "wofha"         , HACK_B_6    , mapper_TK263B, 0, NULL                },
+	{ "sgyxz"         , HACK_B_6    , mapper_TK263B, 0, NULL                },
+	{ "wof3js"        , CPS_B_21_DEF, mapper_TK263B, 0, NULL                },
+	{ "wof3jsa"       , HACK_B_6    , mapper_TK263B, 0, NULL                },
+	{ "wof3sj"        , HACK_B_6    , mapper_TK263B, 0, NULL                },
+	{ "wof3sja"       , HACK_B_6    , mapper_TK263B, 0, NULL                },
+	{ "wofsj"         , HACK_B_6    , mapper_TK263B, 0, NULL                },
+	{ "wofsja"        , HACK_B_6    , mapper_TK263B, 0, NULL                },
+	{ "wofsjb"        , CPS_B_21_DEF, mapper_TK263B, 0, NULL                },
+	{ "wofsjc"        , HACK_B_6    , mapper_TK263B, 0, NULL                },
+	{ "wofr1bl"       , CPS_B_21_DEF, mapper_TK263B, 0, NULL                }, // game controls layers at 0x98000c
+	{ "wofpic"        , CPS_B_21_DEF, mapper_TK263B, 0, NULL                }, // game controls layers at 0x98000c
+	{ "wofjh"         , CPS_B_21_QS1, mapper_TK263B, 0, wof_decode          },
+	{ "wofabl"        , HACK_B_6    , mapper_TK263B, 0, NULL                },
+	{ "wofah"         , CPS_B_21_DEF, mapper_TK263B, 0, wof_decode          },
+	{ "wofaha"        , CPS_B_21_DEF, mapper_TK263B, 0, wof_decode          },
+	{ "wofahb"        , CPS_B_21_DEF, mapper_TK263B, 0, wof_decode          },
+	{ "sfzch"         , CPS_B_21_DEF, mapper_sfzch , 0, NULL                },
+	{ "wofch"         , CPS_B_21_DEF, mapper_sfzch , 0, wof_decode          },
+	{ "wofchp"        , CPS_B_21_DEF, mapper_sfzch , 0, wof_decode          },
+	{ "wofchdx"       , CPS_B_21_DEF, mapper_sfzch , 0, wof_decode          },
+	{ "wofjdr"        , CPS_B_21_QS1, mapper_TK263B, 0, wof_decode          },
+	{ "cps1demo"      , CPS_B_04    , mapper_sfzch , 0, NULL                },
+	{ "cps1frog"      , CPS_B_04    , mapper_frog  , 0, NULL                },
+	{ "kenseim"       , CPS_B_21_DEF, mapper_KNM10B, 0, NULL                },
 	
 	// Not included games
-	{ "pnicku"      , CPS_B_21_DEF, mapper_PKB10B, 0, NULL                },	// IPS
-	{ "sf2cebr"     , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },	// IPS
-	{ "sf2ceh"      , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },	// IPS
-	{ "slammasa"    , CPS_B_21_QS4, mapper_MB63B , 0, slammast_decode     },	// IPS
-	{ "slammash"    , CPS_B_21_QS4, mapper_MB63B , 0, slammast_decode     },	// IPS
-	{ "mbombdje"    , CPS_B_21_QS5, mapper_MB63B , 0, slammast_decode     },	// IPS
-	{ "mbombrda"    , CPS_B_21_QS5, mapper_MB63B , 0, slammast_decode     },	// IPS
-	{ "mbombrdh"    , CPS_B_21_QS5, mapper_MB63B , 0, slammast_decode     },	// IPS
-	{ "mbombrdu"    , CPS_B_21_QS5, mapper_MB63B , 0, slammast_decode     },	// IPS
-	{ "woffr"       , CPS_B_21_DEF, mapper_TK263B, 0, wof_decode          },	// IPS
+	{ "pnicku"        , CPS_B_21_DEF, mapper_PKB10B, 0, NULL                },	// IPS
+	{ "sf2cebr"       , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },	// IPS
+	{ "sf2ceh"        , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },	// IPS
+	{ "slammasa"      , CPS_B_21_QS4, mapper_MB63B , 0, slammast_decode     },	// IPS
+	{ "slammash"      , CPS_B_21_QS4, mapper_MB63B , 0, slammast_decode     },	// IPS
+	{ "mbombdje"      , CPS_B_21_QS5, mapper_MB63B , 0, slammast_decode     },	// IPS
+	{ "mbombrda"      , CPS_B_21_QS5, mapper_MB63B , 0, slammast_decode     },	// IPS
+	{ "mbombrdh"      , CPS_B_21_QS5, mapper_MB63B , 0, slammast_decode     },	// IPS
+	{ "mbombrdu"      , CPS_B_21_QS5, mapper_MB63B , 0, slammast_decode     },	// IPS
+	{ "woffr"         , CPS_B_21_DEF, mapper_TK263B, 0, wof_decode          },	// IPS
 	
 	// CPS Changer Region Hacks (not included)
-	{ "sfach"       , CPS_B_21_DEF, mapper_sfzch , 0, NULL                },
-	{ "sfabch"      , CPS_B_21_DEF, mapper_sfzch , 0, NULL                },
-	{ "sfzbch"      , CPS_B_21_DEF, mapper_sfzch , 0, NULL                },
-	{ "sfzech"      , CPS_B_21_DEF, mapper_sfzch , 0, NULL                },
-	{ "sfzhch"      , CPS_B_21_DEF, mapper_sfzch , 0, NULL                },
+	{ "sfach"         , CPS_B_21_DEF, mapper_sfzch , 0, NULL                },
+	{ "sfabch"        , CPS_B_21_DEF, mapper_sfzch , 0, NULL                },
+	{ "sfzbch"        , CPS_B_21_DEF, mapper_sfzch , 0, NULL                },
+	{ "sfzech"        , CPS_B_21_DEF, mapper_sfzch , 0, NULL                },
+	{ "sfzhch"        , CPS_B_21_DEF, mapper_sfzch , 0, NULL                },
 
-	{ 0             , 0           , 0            , 0, 0                   }
+	{ 0               , 0           , 0            , 0, 0                   }
 };
 
 static void SetGameConfig()
@@ -23019,8 +23086,9 @@ struct BurnDriver BurnDrvCpswofchp = {
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
 
-// Hacked by Grego.
+// Final Fight 30th Anniversary Edition (Hacked by Grego)
 // Patch can be found at: https://github.com/originalgrego/FinalFightAE-Installer
+
 static struct BurnRomInfo FfightaeRomDesc[] = {
 	{ "ff-23m.8h",     0x080000, 0x86def74f, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
 	{ "ff-22m.7h",     0x080000, 0xcbdd8689, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
@@ -23050,6 +23118,168 @@ struct BurnDriver BurnDrvCpsFfightae = {
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 3, HARDWARE_CAPCOM_CPS1, GBF_SCRFIGHT, 0,
 	NULL, FfightaeRomInfo, FfightaeRomName, NULL, NULL, NULL, NULL, FfightaeInputInfo, FfightaeDIPInfo,
+	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
+
+// Captain Commando (1 V 4 GOTVG)
+
+static struct BurnRomInfo Captcommp4RomDesc[] = {
+	{ "captcommp4_23d.8f",  0x080000, 0x40e8a541, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+	{ "captcommp4_22d.7f",  0x080000, 0xf1292a02, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+	{ "cc_24d.9e",     		0x020000, 0x680e543f, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "cc_28d.9f",     		0x020000, 0x8820039f, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+
+	{ "cc-5m.3a",      		0x080000, 0x7261d8ba, BRF_GRA | CPS1_TILES },
+	{ "cc-7m.5a",      		0x080000, 0x6a60f949, BRF_GRA | CPS1_TILES },
+	{ "cc-1m.4a",      		0x080000, 0x00637302, BRF_GRA | CPS1_TILES },
+	{ "cc-3m.6a",      		0x080000, 0xcc87cf61, BRF_GRA | CPS1_TILES },
+	{ "cc-6m.7a",      		0x080000, 0x28718bed, BRF_GRA | CPS1_TILES },
+	{ "cc-8m.9a",      		0x080000, 0xd4acc53a, BRF_GRA | CPS1_TILES },
+	{ "cc-2m.8a",      		0x080000, 0x0c69f151, BRF_GRA | CPS1_TILES },
+	{ "cc-4m.10a",     		0x080000, 0x1f9ebb97, BRF_GRA | CPS1_TILES },
+
+	{ "cc_09.11a",     		0x010000, 0x698e8b58, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "cc_18.11c",     		0x020000, 0x6de2c2db, BRF_SND | CPS1_OKIM6295_SAMPLES },
+	{ "cc_19.12c",     		0x020000, 0xb99091ae, BRF_SND | CPS1_OKIM6295_SAMPLES },
+	
+	A_BOARD_PLDS
+	
+	{ "cc63b.1a",      		0x000117, 0xcae8f0f9, BRF_OPT },	// b-board PLDs
+	{ "iob1.12d",      		0x000117, 0x3abc0700, BRF_OPT },
+	{ "ccprg.11d",     		0x000117, 0xe1c225c4, BRF_OPT },
+	{ "ioc1.ic7",      		0x000104, 0xa399772d, BRF_OPT },	// c-board PLDs
+	{ "c632.ic1",      		0x000117, 0x0fbd9270, BRF_OPT },
+};
+
+STD_ROM_PICK(Captcommp4)
+STD_ROM_FN(Captcommp4)
+
+struct BurnDriver BurnDrvCpsCaptcommp4 = {
+	"captcommp4", "captcomm", NULL, NULL, "2020",
+	"Captain Commando (1 V 4 GOTVG)\0", NULL, "hack", "CPS1",
+	L"Captain Commando (1 V 4 GOTVG)\0\u540D\u5C06 (1 v 4 \u6E38\u805A\u52A0\u5F3A\u7248)\0", NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS1, GBF_SCRFIGHT, 0,
+	NULL, Captcommp4RomInfo, Captcommp4RomName, NULL, NULL, NULL, NULL, CaptcommInputInfo, Captcomm4pDIPInfo,
+	Cps1RasterInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
+
+// Captain Commando (Unlimited Bullet Update 2020-02-19)
+// this set is known as captcomms87 in HBMAME
+
+static struct BurnRomInfo Captcommr1pwxRomDesc[] = {
+	{ "ccs87.10f",     0x302532, 0xc60301c8, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "cc-5m.3a",      0x080000, 0x7261d8ba, BRF_GRA | CPS1_TILES },
+	{ "cc-7m.5a",      0x080000, 0x6a60f949, BRF_GRA | CPS1_TILES },
+	{ "cc-1m.4a",      0x080000, 0x00637302, BRF_GRA | CPS1_TILES },
+	{ "cc-3m.6a",      0x080000, 0xcc87cf61, BRF_GRA | CPS1_TILES },
+	{ "cc-6m.7a",      0x080000, 0x28718bed, BRF_GRA | CPS1_TILES },
+	{ "cc-8m.9a",      0x080000, 0xd4acc53a, BRF_GRA | CPS1_TILES },
+	{ "cc-2m.8a",      0x080000, 0x0c69f151, BRF_GRA | CPS1_TILES },
+	{ "cc-4m.10a",     0x080000, 0x1f9ebb97, BRF_GRA | CPS1_TILES },
+
+	{ "cc_09.11a",     0x010000, 0x698e8b58, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "cc_18.11c",     0x020000, 0x6de2c2db, BRF_SND | CPS1_OKIM6295_SAMPLES },
+	{ "cc_19.12c",     0x020000, 0xb99091ae, BRF_SND | CPS1_OKIM6295_SAMPLES },
+	
+	A_BOARD_PLDS
+	
+	{ "cc63b.1a",      0x000117, 0xcae8f0f9, BRF_OPT },	// b-board PLDs
+	{ "iob1.12d",      0x000117, 0x3abc0700, BRF_OPT },
+	{ "ccprg1.11d",    0x000117, 0xe1c225c4, BRF_OPT },
+	{ "ioc1.ic7",      0x000104, 0xa399772d, BRF_OPT },	// c-board PLDs
+	{ "c632b.ic1",     0x000117, 0x0fbd9270, BRF_OPT },
+};
+
+STD_ROM_PICK(Captcommr1pwx)
+STD_ROM_FN(Captcommr1pwx)
+
+struct BurnDriver BurnDrvCpsCaptcommr1pwx = {
+	"captcommr1pwx", "captcomm", NULL, NULL, "2020",
+	"Captain Commando (Unlimited Bullet Update 2020-02-19)\0", NULL, "Hack", "CPS1",
+	L"Captain Commando (Unlimited Bullet Update 2020-02-19)\0\u540D\u5C06 (\u65E0\u9650\u5B50\u5F39\u589E\u5f3A\u7248 2020-02-19)\0", NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS1, GBF_SCRFIGHT, 0,
+	NULL, Captcommr1pwxRomInfo, Captcommr1pwxRomName, NULL, NULL, NULL, NULL, CaptcommInputInfo, Captcomm4pDIPInfo,  
+	Cps1RasterInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
+
+// Cadillacs and Dinosaurs (God of War Edition Update 2020-03-25, Ngs)
+// This set is known as dinos239 in HBMAME
+
+static struct BurnRomInfo DinodsRomDesc[] = {
+	{ "cdes239.10f",    0x200000, 0x8998c062, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "cd-1m.3a",       0x080000, 0x8da4f917, BRF_GRA | CPS1_TILES },
+	{ "cd-3m.5a",       0x080000, 0x6c40f603, BRF_GRA | CPS1_TILES },
+	{ "cd-2m.4a",       0x080000, 0x09c8fc2d, BRF_GRA | CPS1_TILES },
+	{ "cd-4m.6a",       0x080000, 0x637ff38f, BRF_GRA | CPS1_TILES },
+	{ "cd-5m.7a",       0x080000, 0x470befee, BRF_GRA | CPS1_TILES },
+	{ "cd-7m.9a",       0x080000, 0x22bfb7a3, BRF_GRA | CPS1_TILES },
+	{ "cd-6m.8a",       0x080000, 0xe7599ac4, BRF_GRA | CPS1_TILES },
+	{ "cd-8m.10a",      0x080000, 0x211b4b15, BRF_GRA | CPS1_TILES },
+
+	{ "cd_q.5k",        0x020000, 0x605fdb0b, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "cd-q1.1k",       0x080000, 0x60927775, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q2.2k",       0x080000, 0x770f4c47, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q3.3k",       0x080000, 0x2f273ffc, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q4.4k",       0x080000, 0x2c67821d, BRF_SND | CPS1_QSOUND_SAMPLES },
+	
+	{ "dino.key",       0x000080, 0x230b6eb0, BRF_OPT },
+};
+
+STD_ROM_PICK(Dinods)
+STD_ROM_FN(Dinods)
+
+struct BurnDriver BurnDrvCpsDinods = {
+	"dinods", "dino", NULL, NULL, "2020",
+	"Cadillacs and Dinosaurs (God of War Edition Update 2020-03-25, Ngs)\0", NULL, "Hack", "CPS1 / QSound",
+	L"Cadillacs and Dinosaurs (God of War Edition Update 2020-03-25, Ngs)\0\u6050\u9F99\u65B0\u4E16\u7EAA (\u6597\u795E 2020-03-05, Ngs)\0", NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 3, HARDWARE_CAPCOM_CPS1_QSOUND, GBF_SCRFIGHT, 0,
+	NULL, DinodsRomInfo, DinodsRomName, NULL, NULL, NULL, NULL, DinoInputInfo, DinoDIPInfo,
+	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
+};
+
+// Tenchi wo Kurau II - Sekiheki no Tatakai (Master Edition Update 2020-02-15, Bindi)
+// This set is known as tk2h158 in HBMAME
+
+static struct BurnRomInfo WofjdrRomDesc[] = {
+	{ "tk2h158.10f",   0x200000, 0x4296c806, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "tk2-1m.3a",     0x080000, 0x0d9cb9bf, BRF_GRA | CPS1_TILES },
+	{ "tk2-3m.5a",     0x080000, 0x45227027, BRF_GRA | CPS1_TILES },
+	{ "tk2-2m.4a",     0x080000, 0xc5ca2460, BRF_GRA | CPS1_TILES },
+	{ "tk2-4m.6a",     0x080000, 0xe349551c, BRF_GRA | CPS1_TILES },
+	{ "tk2h140.7a",    0x080000, 0xe3c8c198, BRF_GRA | CPS1_TILES },
+	{ "tk2h140.8a",    0x080000, 0x5e3c0642, BRF_GRA | CPS1_TILES },
+	{ "tk2h140.9a",    0x080000, 0xd65a91d9, BRF_GRA | CPS1_TILES },
+	{ "tk2h140.10a",   0x080000, 0x675d490e, BRF_GRA | CPS1_TILES },
+
+	{ "tk2_qa.5k",     0x020000, 0xc9183a0d, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "tk2-q1.1k",     0x080000, 0x611268cf, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q2.2k",     0x080000, 0x20f55ca9, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q3.3k",     0x080000, 0xbfcf6f52, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q4.4k",     0x080000, 0x36642e88, BRF_SND | CPS1_QSOUND_SAMPLES },
+	
+	{ "wof.key",       0x000080, 0xef8848dd, BRF_OPT },
+};
+
+STD_ROM_PICK(Wofjdr)
+STD_ROM_FN(Wofjdr)
+
+struct BurnDriverD BurnDrvCpsWofjdr = {
+	"wofjdr", "wof", NULL, NULL, "2020",
+	"Tenchi wo Kurau II - Sekiheki no Tatakai (Master Edition Update 2020-02-15, Bindi)\0", NULL, "Hack", "CPS1 / QSound",
+	L"Tenchi wo Kurau II - Sekiheki no Tatakai (Master Edition Update 2020-02-15, Bindi)\0\u541E\u98DF\u5929\u5730 II - \u8D64\u58C1\u4E4B\u6218 (\u8FBE\u4eBA\u7248 2020-02-15, Bindi)\0 ", NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 3, HARDWARE_CAPCOM_CPS1_QSOUND, GBF_SCRFIGHT, 0,
+	NULL, WofjdrRomInfo, WofjdrRomName, NULL, NULL, NULL, NULL, WofInputInfo, WofDIPInfo,
 	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	&CpsRecalcPal, 0x1000, 384, 224, 4, 3
 };
