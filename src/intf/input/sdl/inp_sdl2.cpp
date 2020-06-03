@@ -14,6 +14,28 @@ static int* JoyPrevAxes = NULL;
 static int nJoystickCount = 0;						// Number of joysticks connected to this machine
 int buttons [4][8]= { {-1,-1,-1,-1,-1,-1,-1,-1}, {-1,-1,-1,-1,-1,-1,-1,-1}, {-1,-1,-1,-1,-1,-1,-1,-1}, {-1,-1,-1,-1,-1,-1,-1,-1} }; // 4 joysticks buttons 0 -5 and start / select
 
+
+static SDL_Joystick *joy = NULL;	
+
+enum{
+		OGA_BUTTON_B=0,
+		OGA_BUTTON_A,
+		OGA_BUTTON_X,
+		OGA_BUTTON_Y,
+		OGA_BUTTON_L,
+		OGA_BUTTON_R,
+		OGA_BUTTON_UP,
+		OGA_BUTTON_DOWN,
+		OGA_BUTTON_LEFT,
+		OGA_BUTTON_RIGHT,
+		OGA_BUTTON_F1,
+		OGA_BUTTON_F2,
+		OGA_BUTTON_F3,
+		OGA_BUTTON_F4,
+		OGA_BUTTON_F5,
+		OGA_BUTTON_F6
+};
+
 void setup_kemaps(void)
 {
 	SDLtoFBK[SDL_SCANCODE_UNKNOWN] = 0;
@@ -273,8 +295,10 @@ static int SDLinpJoystickInit(int i)
    SDL_GameController *temp;
 	SDL_GameControllerButtonBind bind;
  
+	SDL_JoystickEventState(SDL_ENABLE);
+	
    JoyList[i] = SDL_JoystickOpen(i);
-
+ #if 0  
 // need this for any mapps that need done might just read a local file and do a readme on how to add your controller this will do for now
    SDL_JoystickGUID guid = SDL_JoystickGetGUID(JoyList[i]);
    char guid_str[1024];
@@ -318,7 +342,16 @@ static int SDLinpJoystickInit(int i)
 
    bind = SDL_GameControllerGetBindForButton(temp, SDL_CONTROLLER_BUTTON_START  );
    buttons[i][7] = bind.value.button;
-
+#else
+	buttons[0][0] = 0;
+	buttons[0][1] = 1;
+	buttons[0][2] = 2;
+	buttons[0][3] = 3;
+	buttons[0][4] = 4;
+	buttons[0][5] = 5;
+	buttons[0][6] = 12;
+	buttons[0][7] = 13;
+#endif
 
 
 	return 0;
@@ -394,7 +427,7 @@ int SDLinpInit()
 	for (int i = 0; i < nJoystickCount; i++) {
 		SDLinpJoystickInit(i);
 	}
-	SDL_JoystickEventState(SDL_IGNORE);
+	//SDL_JoystickEventState(SDL_IGNORE);
 
 	// Set up the keyboard
 	SDLinpKeyboardInit();
@@ -528,16 +561,25 @@ static int JoystickState(int i, int nSubCode)
 
 	if (nSubCode < 0x10) {										// Joystick directions
 		const int DEADZONE = 0x4000;
-
+#if 0
 		if (SDL_JoystickNumAxes(JoyList[i]) <= nSubCode) {
 			return 0;
 		}
-
+#endif
 		switch (nSubCode) {
+#if 1
+	// analog stick
 		case 0x00: return SDL_JoystickGetAxis(JoyList[i], 0) < -DEADZONE;		// Left
 		case 0x01: return SDL_JoystickGetAxis(JoyList[i], 0) > DEADZONE;		// Right
 		case 0x02: return SDL_JoystickGetAxis(JoyList[i], 1) < -DEADZONE;		// Up
 		case 0x03: return SDL_JoystickGetAxis(JoyList[i], 1) > DEADZONE;		// Down
+#else
+	// dpad for analog stick
+		case 0x00: return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_LEFT);
+		case 0x01: return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_RIGHT);
+		case 0x02: return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_UP);
+		case 0x03: return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_DOWN);
+#endif
 		case 0x04: return SDL_JoystickGetAxis(JoyList[i], 2) < -DEADZONE;
 		case 0x05: return SDL_JoystickGetAxis(JoyList[i], 2) > DEADZONE;
 		case 0x06: return SDL_JoystickGetAxis(JoyList[i], 3) < -DEADZONE;
@@ -559,13 +601,17 @@ static int JoystickState(int i, int nSubCode)
 
 		switch (nSubCode & 3) {
 		case 0:												// Left
-			return SDL_JoystickGetHat(JoyList[i], (nSubCode & 0x0F) >> 2)& SDL_HAT_LEFT;
+			//return SDL_JoystickGetHat(JoyList[i], (nSubCode & 0x0F) >> 2)& SDL_HAT_LEFT;
+			return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_LEFT);
 		case 1:												// Right
-			return SDL_JoystickGetHat(JoyList[i], (nSubCode & 0x0F) >> 2)& SDL_HAT_RIGHT;
+			//return SDL_JoystickGetHat(JoyList[i], (nSubCode & 0x0F) >> 2)& SDL_HAT_RIGHT;
+			return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_RIGHT);
 		case 2:												// Up
-			return SDL_JoystickGetHat(JoyList[i], (nSubCode & 0x0F) >> 2)& SDL_HAT_UP;
+			//return SDL_JoystickGetHat(JoyList[i], (nSubCode & 0x0F) >> 2)& SDL_HAT_UP;
+			return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_UP);
 		case 3:												// Down
-			return SDL_JoystickGetHat(JoyList[i], (nSubCode & 0x0F) >> 2)& SDL_HAT_DOWN;
+			//return SDL_JoystickGetHat(JoyList[i], (nSubCode & 0x0F) >> 2)& SDL_HAT_DOWN;
+			return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_DOWN);
 		}
 
 		return 0;

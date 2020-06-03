@@ -22,7 +22,7 @@ int  nAppVirtualFps = 0;         // App fps * 100
 bool bRunPause = 0;
 bool bAppFullscreen = 0;
 bool bAlwaysProcessKeyboardInput = 0;
-int  usemenu = 0, usejoy = 0, vsync = 1, dat = 0;
+int  usemenu = 0, usejoy = 1, vsync = 1, dat = 0;
 bool bSaveconfig = 1;
 bool bIntegerScale = false;
 

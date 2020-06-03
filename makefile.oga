@@ -52,7 +52,8 @@ include makefile.burn_rules
 # Platform stuff
 alldir	+= 	burner burner/sdl burner/sdl dep/libs/libpng dep/libs/lib7z dep/libs/zlib intf intf/video \
 			intf/video/scalers 	intf/video/sdl intf/audio intf/audio/sdl intf/input intf/input/sdl intf/cd intf/cd/sdl \
-			intf/perfcount intf/perfcount/sdl dep/generated
+			intf/perfcount intf/perfcount/sdl dep/generated \
+			dep/oga/gles
 
 depobj	+= 	neocdlist.o \
 			\
@@ -68,10 +69,12 @@ depobj	+= 	neocdlist.o \
 			vid_softfx.o vid_support.o \
 			\
 			2xpm.o 2xsai.o ddt3x.o epx.o hq2xs.o hq2xs_16.o xbr.o \
-			\
+			matrix.o vid_oga.o\
 			inp_sdl2.o aud_sdl.o support_paths.o ips_manager.o scrn.o \
 			cd_sdl2.o config.o main.o run.o stringset.o bzip.o drv.o media.o sdl2_gui_ingame.o sdl2_gui_common.o \
 			inpdipsw.o vid_sdl2opengl.o vid_sdl2.o dynhuff.o replay.o sdl2_gui.o sdl2_inprint.o input_sdl2.o stated.o
+
+depobj += ogagl_drm.o
 
 ifdef FORCE_PULSE_AUDIO
 alldir	+= 	intf/audio/linux
@@ -96,13 +99,17 @@ endif
 
 incdir	= $(foreach dir,$(alldir),-I$(srcdir)$(dir)) -I$(objdir)dep/generated \
 		  -I/local/include -I$(srcdir)dep/sdl/include \
-		  -I$(srcdir)intf/input/sdl `sdl2-config --cflags`
-
+		  -I$(srcdir)intf/input/sdl `sdl2-config --cflags` \
+		  -I$(srcdir)dep/oga/gles
 ifdef WINDOWS
 lib	= -lstdc++ `sdl2-config --libs` -lopengl32 -lSDL2_image -lm
 else
-lib	= -lstdc++ `sdl2-config --libs` -lGL -lSDL2_image -lm
+lib	= -lstdc++ `sdl2-config --libs` -lSDL2_image -lm -lEGL -lGLESv2 -ldrm -lgbm -lGL -lgo2
 endif
+
+incdir += -I/usr/include/libdrm
+
+
 
 ifdef FORCE_PULSE_AUDIO
 lib += -lpthread -lpulse-simple
@@ -169,22 +176,24 @@ ifdef DARWIN
 	# GCC 4.2.1 Segfaults during build
 	CC	= gcc-9
 else
-	CC	= gcc
+	CC	= arm-linux-gnueabihf-gcc
 endif
 
 CXX	= $(CC)
 LD	= $(CC)
-AS	= nasm
+AS	= arm-linux-gnueabihf-as
 
 #LDFLAGS	= -static
 
 CFLAGS = -O2 -fomit-frame-pointer -Wno-write-strings \
+          -march=armv7-a -mfpu=neon-vfpv4 -mfloat-abi=hard \
 	   -Wall -Wno-long-long -Wno-sign-compare -Wno-uninitialized -Wno-unused \
 	   -Wno-conversion -Wno-attributes \
 	   -Wno-unused-parameter -Wno-unused-value -std=c99 \
 	   $(PLATFLAGS) $(DEF) $(incdir)
 
 CXXFLAGS = -O2 -fomit-frame-pointer -Wno-write-strings \
+           -march=armv7-a -mfpu=neon-vfpv4 -mfloat-abi=hard \
 	   -Wall -W -Wno-long-long \
 	   -Wunknown-pragmas -Wundef -Wconversion -Wno-missing-braces \
 	   -Wuninitialized -Wpointer-arith -Winline -Wno-multichar \
@@ -192,7 +201,7 @@ CXXFLAGS = -O2 -fomit-frame-pointer -Wno-write-strings \
 	   -Wno-unused-parameter -Wno-unused-value -Wno-narrowing \
 	   $(PLATFLAGS) $(DEF) $(incdir)
 
-ASFLAGS	=  -O1 -f coff -w-orphan-labels
+ASFLAGS	=  -f elf
 
 #       D3DUtils & D3DMath need these
 #       DEF     = -Dsinf=\(float\)sin -Dcosf=\(float\)cos -Dasinf=\(float\)asin -Dacosf=\(float\)acos -Dsqrtf=\(float\)sqrt
@@ -416,7 +425,7 @@ endif
 ifdef	BUILD_A68K
 $(a68k.o):	fba_make68k.c
 	@echo Compiling A68K MC68000 core...
-	@$(CC) -mconsole $(CFLAGS) $(LDFLAGS) -DWIN32 -Wno-unused -Wno-conversion -Wno-missing-prototypes \
+	@$(CC) $(CFLAGS) $(LDFLAGS) -DWIN32 -Wno-unused -Wno-conversion -Wno-missing-prototypes \
 		-s $< -o $(subst $(srcdir),$(objdir),$(<D))/$(<F:.c=.exe)
 	@$(subst $(srcdir),$(objdir),$(<D))/$(<F:.c=.exe) $(@:.o=.asm) \
 		$(@D)/a68k_tab.asm 00 $(ppro)

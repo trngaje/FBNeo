@@ -43,6 +43,26 @@ struct MenuItem
 static UINT16 current_menu = MAINMENU;
 static UINT16 current_selected_item = 0;
 
+enum{
+		OGA_BUTTON_B=0,
+		OGA_BUTTON_A,
+		OGA_BUTTON_X,
+		OGA_BUTTON_Y,
+		OGA_BUTTON_L,
+		OGA_BUTTON_R,
+		OGA_BUTTON_UP,
+		OGA_BUTTON_DOWN,
+		OGA_BUTTON_LEFT,
+		OGA_BUTTON_RIGHT,
+		OGA_BUTTON_F1,
+		OGA_BUTTON_F2,
+		OGA_BUTTON_F3,
+		OGA_BUTTON_F4,
+		OGA_BUTTON_F5,
+		OGA_BUTTON_F6
+};
+
+
 int QuickSave()
 {
   QuickState(1);
@@ -176,35 +196,68 @@ int ingame_gui_process()
 		{
 			return 1;
 		}
-    if (e.type == SDL_KEYDOWN)
-    {
-      switch (e.key.keysym.sym)
-      {
-      case SDLK_TAB:
-        return 1;
-        break;
-			case SDLK_UP:
-				if (current_selected_item > 0)
-				{
-					current_selected_item--;
+		if (e.type == SDL_KEYDOWN)
+		{
+			switch (e.key.keysym.sym)
+			{
+				case SDLK_TAB:
+					return 1;
+					break;
+				case SDLK_UP:
+					if (current_selected_item > 0)
+					{
+						current_selected_item--;
+					}
+					break;
+				case SDLK_DOWN:
+					if (current_selected_item < current_item_count-1)
+					{
+						current_selected_item++;
+					}
+					break;
+				case SDLK_RETURN:
+					if (current_menu_items[current_selected_item].menuFunction!=NULL)
+					{
+						int (*menuFunction)();
+						menuFunction = current_menu_items[current_selected_item].menuFunction;
+						return menuFunction();
+					}
+					break;
+			}
+		}
+		if (e.type == SDL_JOYBUTTONDOWN)
+		{
+			if (e.jbutton.which == 0)
+			{
+				switch (e.jbutton.button)
+				{	
+				case OGA_BUTTON_B:
+					return 1;
+					break;
+
+				case OGA_BUTTON_UP:
+					if (current_selected_item > 0)
+					{
+						current_selected_item--;
+					}
+					break;
+				case OGA_BUTTON_DOWN:
+					if (current_selected_item < current_item_count-1)
+					{
+						current_selected_item++;
+					}
+					break;
+				case OGA_BUTTON_A:
+					if (current_menu_items[current_selected_item].menuFunction!=NULL)
+					{
+						int (*menuFunction)();
+						menuFunction = current_menu_items[current_selected_item].menuFunction;
+						return menuFunction();
+					}
+					break;
 				}
-				break;
-			case SDLK_DOWN:
-				if (current_selected_item < current_item_count-1)
-				{
-					current_selected_item++;
-				}
-				break;
-			case SDLK_RETURN:
-				if (current_menu_items[current_selected_item].menuFunction!=NULL)
-				{
-					int (*menuFunction)();
-					menuFunction = current_menu_items[current_selected_item].menuFunction;
-					return menuFunction();
-				}
-				break;
-      }
-    }
+			}
+		}
   }
   return 0;
 }

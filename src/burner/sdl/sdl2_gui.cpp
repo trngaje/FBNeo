@@ -11,8 +11,8 @@ static SDL_Renderer* sdlRenderer = NULL;
 static SDL_Texture* titleTexture = NULL;
 static SDL_Surface *miscImage=NULL;
 
-static int nVidGuiWidth = 800;
-static int nVidGuiHeight = 600;
+static int nVidGuiWidth = 480; //800; // by trngaje
+static int nVidGuiHeight = 320; //600; // by trngaje
 
 static int startGame = 0; // game at top of list as it is displayed on the menu
 static unsigned int gamesperscreen = 12;
@@ -41,7 +41,26 @@ static int gameSelectedFromFilter = -1;
 static char searchLetters[27] = {'1','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 static UINT8 currentLetterCount = 0;
 
+static SDL_Joystick *joy = NULL;	// added by trngaje
 
+enum{
+		OGA_BUTTON_B=0,
+		OGA_BUTTON_A,
+		OGA_BUTTON_X,
+		OGA_BUTTON_Y,
+		OGA_BUTTON_L,
+		OGA_BUTTON_R,
+		OGA_BUTTON_UP,
+		OGA_BUTTON_DOWN,
+		OGA_BUTTON_LEFT,
+		OGA_BUTTON_RIGHT,
+		OGA_BUTTON_F1,
+		OGA_BUTTON_F2,
+		OGA_BUTTON_F3,
+		OGA_BUTTON_F4,
+		OGA_BUTTON_F5,
+		OGA_BUTTON_F6
+};
 
 SDL_Texture* LoadTitleImage(SDL_Renderer* renderer, SDL_Texture* loadedTexture)
 {
@@ -695,8 +714,16 @@ void RefreshRomList(bool force_rescan)
 
 void gui_exit()
 {
+	printf("[trngaje] gui_exit++\n");
+	
 	SDL_GameControllerClose( gGameController );
 	gGameController = NULL;
+
+	//if (SDL_JoystickGetAttached(joy)) 
+	if (joy != NULL) {
+        SDL_JoystickClose(joy);
+		joy = NULL;
+	}
 
 	if (filterGames!=NULL)
 	{
@@ -724,6 +751,19 @@ void gui_init()
 	else
 	{
 		for (int i = 0; i < SDL_NumJoysticks(); ++i) {
+			SDL_JoystickEventState(SDL_ENABLE);
+			joy = SDL_JoystickOpen(0);
+			
+			if (joy) {
+				printf("Opened Joystick 0\n");
+				printf("Name: %s\n", SDL_JoystickNameForIndex(0));
+				printf("Number of Axes: %d\n", SDL_JoystickNumAxes(joy));
+				printf("Number of Buttons: %d\n", SDL_JoystickNumButtons(joy));
+				printf("Number of Balls: %d\n", SDL_JoystickNumBalls(joy));
+			} else {
+				printf("Couldn't open Joystick 0\n");
+			}			
+			
 		    if (SDL_IsGameController(i)) {
 		        gGameController = SDL_GameControllerOpen(i);
 		        if (gGameController) {
@@ -1031,6 +1071,86 @@ int gui_process()
 					break;
 				}
 				break;
+			}
+			
+			if (e.type == SDL_JOYBUTTONDOWN)
+			{
+				if (e.jbutton.which == 0)
+				{
+					switch (e.jbutton.button)
+					{	
+					case OGA_BUTTON_UP:
+						startGame--;
+						break;
+
+					case OGA_BUTTON_DOWN:
+						startGame++;
+						break;
+/*
+					case SDLK_HOME:
+						startGame = -gamesperscreen_halfway;
+						break;
+
+					case SDLK_END:
+						startGame = filterGamesCount;
+						break;
+*/
+					case OGA_BUTTON_L:
+						startGame -= gamesperscreen_halfway;
+						break;
+
+					case OGA_BUTTON_R:
+						startGame += gamesperscreen_halfway;
+						break;
+
+					case OGA_BUTTON_LEFT:
+						startGame -= 10;
+						break;
+
+					case OGA_BUTTON_RIGHT:
+						startGame += 10;
+						break;
+/*
+					case SDLK_w:
+						findNextLetter();
+						break;
+					case SDLK_q:
+						findPrevLetter();
+						break;
+*/
+					case OGA_BUTTON_A:
+						nBurnDrvActive = gametoplay;
+						if (gameAv[nBurnDrvActive])
+						{
+							return gametoplay;
+						}
+						break;
+					case OGA_BUTTON_F1:
+						RefreshRomList(true);
+						break;
+					case OGA_BUTTON_F2:
+						bShowAvailableOnly = !bShowAvailableOnly;
+						DoFilterGames();
+						break;
+					case OGA_BUTTON_F3:
+						SwapSystemToCheck();
+						break;
+					case OGA_BUTTON_F4:
+						bShowClones = !bShowClones;
+						DoFilterGames();
+						break;
+					case OGA_BUTTON_F6:
+						quit = 1;
+						break;
+
+					default:
+						break;					
+					}					
+				}
+				//e.jbutton.which;
+				//e.jbutton.button;
+				//e.jbutton.state;
+				//printf("[trngaje] sdl2_gui.cpp:SDL_JOYBUTTONDOWN:%d,%d,%d\n", e.jbutton.which, e.jbutton.button, e.jbutton.state);
 			}
 
 		}

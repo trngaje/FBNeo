@@ -18,6 +18,7 @@
 	extern struct VidOut VidOutPi;
 #elif defined (BUILD_SDL2)
 	extern struct VidOut VidOutSDL2;
+	extern struct VidOut VidOutOGA; // by trngaje	
 	extern struct VidOut VidOutSDL2Opengl;
 #elif defined (BUILD_SDL)
 	extern struct VidOut VidOutSDLOpenGL;
@@ -41,6 +42,7 @@ static struct VidOut *pVidOut[] = {
 	&VidOutPi,
 #elif defined (BUILD_SDL2)
 	&VidOutSDL2,
+	&VidOutOGA, // added by trngaje	
 	&VidOutSDL2Opengl,
 #elif defined (BUILD_SDL)
 	&VidOutSDLOpenGL,

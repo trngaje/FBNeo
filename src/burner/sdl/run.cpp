@@ -34,6 +34,25 @@ static char* szSDLSavePath = NULL;
 
 int bDrvSaveAll = 0;
 
+enum{
+		OGA_BUTTON_B=0,
+		OGA_BUTTON_A,
+		OGA_BUTTON_X,
+		OGA_BUTTON_Y,
+		OGA_BUTTON_L,
+		OGA_BUTTON_R,
+		OGA_BUTTON_UP,
+		OGA_BUTTON_DOWN,
+		OGA_BUTTON_LEFT,
+		OGA_BUTTON_RIGHT,
+		OGA_BUTTON_F1,
+		OGA_BUTTON_F2,
+		OGA_BUTTON_F3,
+		OGA_BUTTON_F4,
+		OGA_BUTTON_F5,
+		OGA_BUTTON_F6
+};
+
 // The automatic save
 int StatedAuto(int bSave)
 {
@@ -336,7 +355,8 @@ int RunMessageLoop()
 
 	RunInit();
 	GameInpCheckMouse();                                                                     // Hide the cursor
-
+	SDL_JoystickUpdate();
+	
 	while (!quit)
 	{
 		SDL_Event event;
@@ -388,7 +408,51 @@ int RunMessageLoop()
 					break;
 				}
 				break;
+				
+			case SDL_JOYBUTTONDOWN:
+				if (event.jbutton.which == 0)
+				{
+					switch (event.jbutton.button)
+					{
+					case OGA_BUTTON_F1:
+						bAppDoFast = 1;
+						break;
+					case OGA_BUTTON_L:
+						QuickState(0);
+						break;
+					case OGA_BUTTON_R:
+						QuickState(1);
+						break;
+					case OGA_BUTTON_F2:
+						bAppShowFPS = !bAppShowFPS;
+						break;
+	#ifdef BUILD_SDL2
+					case OGA_BUTTON_F5:
+						ingame_gui_start(sdlRenderer);
+						break;
+	#endif
+					case OGA_BUTTON_F6:
+						quit = 1;
+						break;
+					default:
+					break;						
+					}	
+				}					
+				break;
+			case SDL_JOYBUTTONUP:
+				if (event.jbutton.which == 0)
+				{
+					switch (event.jbutton.button)
+					{
+					case OGA_BUTTON_F1:
+						bAppDoFast = 0;
+						break;
+					}
+				}
+				
+				break;
 			}
+
 		}
 		RunIdle();
 	}
