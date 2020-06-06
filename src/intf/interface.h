@@ -257,3 +257,15 @@ extern TCHAR EditText[MAX_CHAT_SIZE + 1];
 extern TCHAR OSDMsg[MAX_PATH];
 extern UINT32 nOSDTimer;
 void VidSKillOSDMsg();
+
+// add extra config by trngaje
+extern INT32 nMaintainAspectRatio;
+extern INT32 nDisplayAutoRotate;
+extern INT32 nA_1;
+extern INT32 nB_1;
+extern INT32 nX_1;
+extern INT32 nY_1;
+extern INT32 nL_1;
+extern INT32 nR_1;
+extern INT32 nSTART_1;
+extern INT32 nSELECT_1;

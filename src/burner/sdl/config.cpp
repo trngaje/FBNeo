@@ -65,6 +65,19 @@ int ConfigAppLoad()
 		VAR(bVidFullStretch);
 		VAR(nAutoFireRate);
 #endif
+
+		// add extra config by trngaje
+		VAR(nMaintainAspectRatio);
+		VAR(nDisplayAutoRotate);
+		VAR(nA_1);
+		VAR(nB_1);
+		VAR(nX_1);
+		VAR(nY_1);
+		VAR(nL_1);
+		VAR(nR_1);
+		VAR(nSTART_1);
+		VAR(nSELECT_1);
+		
 		VAR(bVidScanlines);
 		VAR(bDoGamma);
 		FLT(nGamma);
@@ -120,6 +133,7 @@ int ConfigAppLoad()
 		STR(szAppDatListsPath);
 		STR(szAppArchivesPath);
 	
+	
 #undef STR
 #undef FLT
 #undef VAR
@@ -159,6 +173,22 @@ int ConfigAppSave()
 	fprintf(f, "\n// Auto-Fire Rate, non-linear - use the GUI to change this setting!\n");
 	VAR(nAutoFireRate);
 #endif
+
+	// add extra config by trngaje
+	fprintf(f, "\n// Screen aspect ratio 0:stretch to fullscreen, 1:keep aspect ratio\n");
+	VAR(nMaintainAspectRatio);
+	fprintf(f, "\n// Screen auto rotate 0:normal, 1:rotate screen by rom information \n");
+	VAR(nDisplayAutoRotate);
+	fprintf(f, "\n// Joystick1 map \n");
+	VAR(nA_1);
+	VAR(nB_1);
+	VAR(nX_1);
+	VAR(nY_1);
+	VAR(nL_1);
+	VAR(nR_1);
+	VAR(nSTART_1);
+	VAR(nSELECT_1);
+
 	fprintf(f, "\n// If non-zero, enable scanlines\n");
 	VAR(bVidScanlines);
 	fprintf(f, "\n// If non-zero, enable software gamma correction\n");

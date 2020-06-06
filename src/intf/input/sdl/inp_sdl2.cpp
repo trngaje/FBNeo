@@ -36,6 +36,20 @@ enum{
 		OGA_BUTTON_F6
 };
 
+// add extra config by trngaje
+INT32 nA_1=1;
+INT32 nB_1=0;
+INT32 nX_1=2;
+INT32 nY_1=3;
+INT32 nL_1=4;
+INT32 nR_1=5;
+INT32 nSTART_1=13;
+INT32 nSELECT_1=12;
+
+extern int screenRotated;
+extern  int screenFlipped;
+extern INT32 nDisplayAutoRotate;
+
 void setup_kemaps(void)
 {
 	SDLtoFBK[SDL_SCANCODE_UNKNOWN] = 0;
@@ -343,14 +357,14 @@ static int SDLinpJoystickInit(int i)
    bind = SDL_GameControllerGetBindForButton(temp, SDL_CONTROLLER_BUTTON_START  );
    buttons[i][7] = bind.value.button;
 #else
-	buttons[0][0] = 0;
-	buttons[0][1] = 1;
-	buttons[0][2] = 2;
-	buttons[0][3] = 3;
-	buttons[0][4] = 4;
-	buttons[0][5] = 5;
-	buttons[0][6] = 12;
-	buttons[0][7] = 13;
+	buttons[0][0] = nB_1;
+	buttons[0][1] = nA_1;
+	buttons[0][2] = nX_1;
+	buttons[0][3] = nY_1;
+	buttons[0][4] = nL_1;
+	buttons[0][5] = nR_1;
+	buttons[0][6] = nSELECT_1;
+	buttons[0][7] = nSTART_1;
 #endif
 
 
@@ -566,34 +580,73 @@ static int JoystickState(int i, int nSubCode)
 			return 0;
 		}
 #endif
-		switch (nSubCode) {
-#if 1
-	// analog stick
-		case 0x00: return SDL_JoystickGetAxis(JoyList[i], 0) < -DEADZONE;		// Left
-		case 0x01: return SDL_JoystickGetAxis(JoyList[i], 0) > DEADZONE;		// Right
-		case 0x02: return SDL_JoystickGetAxis(JoyList[i], 1) < -DEADZONE;		// Up
-		case 0x03: return SDL_JoystickGetAxis(JoyList[i], 1) > DEADZONE;		// Down
-#else
-	// dpad for analog stick
-		case 0x00: return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_LEFT);
-		case 0x01: return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_RIGHT);
-		case 0x02: return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_UP);
-		case 0x03: return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_DOWN);
-#endif
-		case 0x04: return SDL_JoystickGetAxis(JoyList[i], 2) < -DEADZONE;
-		case 0x05: return SDL_JoystickGetAxis(JoyList[i], 2) > DEADZONE;
-		case 0x06: return SDL_JoystickGetAxis(JoyList[i], 3) < -DEADZONE;
-		case 0x07: return SDL_JoystickGetAxis(JoyList[i], 3) > DEADZONE;
-		case 0x08: return SDL_JoystickGetAxis(JoyList[i], 4) < -DEADZONE;
-		case 0x09: return SDL_JoystickGetAxis(JoyList[i], 4) > DEADZONE;
-		case 0x0A: return SDL_JoystickGetAxis(JoyList[i], 5) < -DEADZONE;
-		case 0x0B: return SDL_JoystickGetAxis(JoyList[i], 5) > DEADZONE;
-		case 0x0C: return SDL_JoystickGetAxis(JoyList[i], 6) < -DEADZONE;
-		case 0x0D: return SDL_JoystickGetAxis(JoyList[i], 6) > DEADZONE;
-		case 0x0E: return SDL_JoystickGetAxis(JoyList[i], 7) < -DEADZONE;
-		case 0x0F: return SDL_JoystickGetAxis(JoyList[i], 7) > DEADZONE;
+
+
+		if ( (nDisplayAutoRotate==0) || (screenRotated==0) )
+		{
+			switch (nSubCode) {
+	#if 1
+		// analog stick
+			case 0x00: return SDL_JoystickGetAxis(JoyList[i], 0) < -DEADZONE;		// Left
+			case 0x01: return SDL_JoystickGetAxis(JoyList[i], 0) > DEADZONE;		// Right
+			case 0x02: return SDL_JoystickGetAxis(JoyList[i], 1) < -DEADZONE;		// Up
+			case 0x03: return SDL_JoystickGetAxis(JoyList[i], 1) > DEADZONE;		// Down
+	#else
+		// dpad for analog stick
+			case 0x00: return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_LEFT);
+			case 0x01: return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_RIGHT);
+			case 0x02: return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_UP);
+			case 0x03: return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_DOWN);
+	#endif
+			case 0x04: return SDL_JoystickGetAxis(JoyList[i], 2) < -DEADZONE;
+			case 0x05: return SDL_JoystickGetAxis(JoyList[i], 2) > DEADZONE;
+			case 0x06: return SDL_JoystickGetAxis(JoyList[i], 3) < -DEADZONE;
+			case 0x07: return SDL_JoystickGetAxis(JoyList[i], 3) > DEADZONE;
+			case 0x08: return SDL_JoystickGetAxis(JoyList[i], 4) < -DEADZONE;
+			case 0x09: return SDL_JoystickGetAxis(JoyList[i], 4) > DEADZONE;
+			case 0x0A: return SDL_JoystickGetAxis(JoyList[i], 5) < -DEADZONE;
+			case 0x0B: return SDL_JoystickGetAxis(JoyList[i], 5) > DEADZONE;
+			case 0x0C: return SDL_JoystickGetAxis(JoyList[i], 6) < -DEADZONE;
+			case 0x0D: return SDL_JoystickGetAxis(JoyList[i], 6) > DEADZONE;
+			case 0x0E: return SDL_JoystickGetAxis(JoyList[i], 7) < -DEADZONE;
+			case 0x0F: return SDL_JoystickGetAxis(JoyList[i], 7) > DEADZONE;
+			}
+		
+		}
+		else{
+			switch (nSubCode) {
+			#if 1
+			// analog stick
+			case 0x00: return SDL_JoystickGetAxis(JoyList[i], 1) < -DEADZONE;		// Up	
+			case 0x01: return SDL_JoystickGetAxis(JoyList[i], 1) > DEADZONE;		// Down
+			case 0x02: return SDL_JoystickGetAxis(JoyList[i], 0) > DEADZONE;		// Right
+			case 0x03: return SDL_JoystickGetAxis(JoyList[i], 0) < -DEADZONE;		// Left			
+			#else
+			// dpad for analog stick
+			case 0x00: return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_UP);
+			case 0x01: return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_DOWN);
+			case 0x02: return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_RIGHT);			
+			case 0x03: return SDL_JoystickGetButton(JoyList[i], OGA_BUTTON_LEFT);
+
+
+			#endif
+			case 0x04: return SDL_JoystickGetAxis(JoyList[i], 2) < -DEADZONE;
+			case 0x05: return SDL_JoystickGetAxis(JoyList[i], 2) > DEADZONE;
+			case 0x06: return SDL_JoystickGetAxis(JoyList[i], 3) < -DEADZONE;
+			case 0x07: return SDL_JoystickGetAxis(JoyList[i], 3) > DEADZONE;
+			case 0x08: return SDL_JoystickGetAxis(JoyList[i], 4) < -DEADZONE;
+			case 0x09: return SDL_JoystickGetAxis(JoyList[i], 4) > DEADZONE;
+			case 0x0A: return SDL_JoystickGetAxis(JoyList[i], 5) < -DEADZONE;
+			case 0x0B: return SDL_JoystickGetAxis(JoyList[i], 5) > DEADZONE;
+			case 0x0C: return SDL_JoystickGetAxis(JoyList[i], 6) < -DEADZONE;
+			case 0x0D: return SDL_JoystickGetAxis(JoyList[i], 6) > DEADZONE;
+			case 0x0E: return SDL_JoystickGetAxis(JoyList[i], 7) < -DEADZONE;
+			case 0x0F: return SDL_JoystickGetAxis(JoyList[i], 7) > DEADZONE;
+			}		
 		}
 	}
+
+	
 	if (nSubCode < 0x20) {										// POV hat controls
 		if (SDL_JoystickNumHats(JoyList[i]) <= ((nSubCode & 0x0F) >> 2)) {
 			return 0;

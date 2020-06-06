@@ -41,8 +41,10 @@ static int texturePitch;
 static int textureFormat;
 static unsigned char *textureBitmap;
 
-static int screenRotated = 0;
-static int screenFlipped = 0;
+//static int screenRotated = 0;
+//static int screenFlipped = 0;
+int screenRotated = 0;
+int screenFlipped = 0;
 
 static ShaderInfo shader;
 static GLuint buffers[3];
@@ -103,6 +105,10 @@ static const GLfloat vertices[] = {
 	+0.5f, +0.5f, 0.0f,
 	-0.5f, +0.5f, 0.0f,
 };
+
+// add extra config by trngaje
+INT32 nMaintainAspectRatio=1;
+INT32 nDisplayAutoRotate=0;
 
 static int piInitVideo()
 {
@@ -373,6 +379,7 @@ static int reinitTextures()
 
 	printf("[trngaje] screen_width = %d, screen_height = %d \n", screen_width, screen_height);
 	// Screen aspect ratio adjustment
+#if 0
 	float a = (float)screen_width / (float)screen_height;
 	float a0 = (float)bufferWidth / (float)bufferHeight;
 	if (a > a0) {
@@ -381,21 +388,83 @@ static int reinitTextures()
 		sy = a/a0;
 	}
 	printf("[trngaje] sx = %f, sy = %f\n", sx, sy);
+#endif
 
+	// 1:1 scale 
+	float ratio_screen = (float)screen_height / (float)screen_width;// display resolution for oga
+	float ratio_buffer = (float)bufferWidth / (float)bufferHeight;	// for roms
+	float scale_height=0;;
+	float scale_width=0;;
+	float zoom_width=1.0f;	// default: fullscreen;
+	float zoom_height=1.0f; // default: fullscreen;
+	
+	if (ratio_screen > ratio_buffer)
+	{
+		if (screen_width >= bufferHeight)
+		{
+			// 320x480 : 1.5
+			// 304x224 : 1.4
+			scale_height = (float)screen_width / (float)bufferHeight;
+			zoom_height = scale_height * (float)bufferWidth / (float)screen_height;
+		}
+		else 
+		{
+			printf("[trngaje] screen_width < bufferHeight=%d\n", bufferHeight);
+		}
+	}
+	else
+	{
+		printf("[trngaje] ratio_screen(%f) <= ratio_buffer(%f)=%d\n", ratio_screen, ratio_buffer);
+		// ex)dino, 384x224
+		scale_width = (float)screen_height / (float)bufferWidth;
+		zoom_width = scale_width * (float)bufferHeight / (float)screen_width;
+	}
+#if 1	
 	phl_matrix_identity(&projection);
-	if (!screenRotated) {
+	
+	if (nDisplayAutoRotate==0)
+	{
+		if (!screenRotated) {
+			phl_matrix_rotate_z(&projection, screenFlipped ? 270 : 90);
+		}
+		else {
+			phl_matrix_rotate_z(&projection, screenFlipped ? 0 : 180);
+		}
+	}
+	else{ // automatic rotate screen 
 		phl_matrix_rotate_z(&projection, screenFlipped ? 270 : 90);
 	}
-	else {
-		phl_matrix_rotate_z(&projection, screenFlipped ? 0 : 180);
-	}
+
 	
 	phl_matrix_ortho(&projection, -0.5f, +0.5f, +0.5f, -0.5f, -1.0f, 1.0f);
 	#if 0
+	// original
 	phl_matrix_scale(&projection, sx * zoom, sy * zoom, 0);
 	#endif
-	phl_matrix_scale(&projection, 1, 1, 0); // fullscreen
 	
+	if (nMaintainAspectRatio == 0)
+		phl_matrix_scale(&projection, 1, 1, 0); // fullscreen
+	else 
+		phl_matrix_scale(&projection, zoom_width, zoom_height, 0); // 1:1 scale
+#else
+//	glMatrixMode(GL_PROJECTION);
+//	glLoadIdentity();	
+
+	if (!screenRotated)
+	{
+		glRotatef((screenFlipped ? 270.0 : 90.0), 0.0, 0.0, 1.0);	
+		glOrtho(0, nGamesHeight, nGamesWidth, 0, -1, 1);
+	}
+	else
+	{
+		glRotatef((screenFlipped ? 0 : 180.0), 0.0, 0.0, 1.0);
+		glOrtho(0, nGamesWidth, nGamesHeight, 0, -1, 1);
+	}
+	glScalef(zoom_width, zoom_height, 1.0f);
+	
+//	glMatrixMode(GL_MODELVIEW);
+//	glLoadIdentity();
+#endif	
 	fprintf(stderr, "Setting up screen...\n");
 
 	int bufferSize = bufferWidth * bufferHeight * bufferBpp;
